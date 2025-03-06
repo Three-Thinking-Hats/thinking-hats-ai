@@ -30,7 +30,7 @@ jobs:
       - name: Build release distributions with uv
         run: |
           uv venv .venv
-          uv pip install -U setuptools wheel
+          uv pip install -U setuptools wheel build
           .venv/bin/python -m build
 
       - name: Upload distributions
