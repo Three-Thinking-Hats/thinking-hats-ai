@@ -3,8 +3,6 @@ name: Upload Python Package
 on:
   push:
     branches: ["main"]
-  pull_request:
-    branches: ["main"]
 
 permissions:
   contents: read
@@ -23,12 +21,14 @@ jobs:
       - name: Install uv
         run: |
           curl -LsSf https://astral.sh/uv/install.sh | sh
-          echo "$(HOME)/.local/bin" >> $GITHUB_PATH
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+          export PATH="$HOME/.local/bin:$PATH"
+
 
       - name: Build release distributions with uv
         run: |
           uv venv .venv
-          .venv/bin/uv pip install -U setuptools wheel
+          uv pip install -U setuptools wheel build
           .venv/bin/python -m build
 
       - name: Upload distributions
@@ -43,18 +43,18 @@ jobs:
       - release-build
     permissions:
       id-token: write
-
+  
     environment:
       name: pypi
-
+  
     steps:
       - name: Retrieve release distributions
         uses: actions/download-artifact@v4
         with:
           name: release-dists
           path: dist/
-
+  
       - name: Publish release distributions to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
-          packages-dir: dist/
+          password: ${{ secrets.PYPI_API_TOKEN }}
