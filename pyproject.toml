@@ -1,0 +1,17 @@
+[project]
+name = "thinking-hats-ai"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "marctimothy.huber@uzh.ch", email = "marctimothy.huber@uzh.ch" }
+]
+requires-python = ">=3.9"
+dependencies = []
+
+[project.scripts]
+thinking-hats-ai = "thinking_hats_ai:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
