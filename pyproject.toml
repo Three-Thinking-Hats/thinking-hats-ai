@@ -7,7 +7,9 @@ authors = [
     { name = "marctimothy.huber@uzh.ch", email = "marctimothy.huber@uzh.ch" }
 ]
 requires-python = ">=3.9"
-dependencies = []
+dependencies = [
+    "langchain>=0.3.20",
+]
 
 [project.scripts]
 thinking-hats-ai = "thinking_hats_ai:main"
