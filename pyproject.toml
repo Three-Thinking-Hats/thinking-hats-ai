@@ -1,10 +1,14 @@
 [project]
 name = "thinking-hats-ai"
-version = "0.1.0"
+version = "0.1.2"
 description = "Add your description here"
 readme = "README.md"
 authors = [
-    { name = "marctimothy.huber@uzh.ch", email = "marctimothy.huber@uzh.ch" }
+    { name = "Marc Timothy Huber", email = "marctimothy.huber@uzh.ch" }
+]
+maintainers = [
+    { name = "Timon Derboven", email = "timon.derboven@uzh.ch" },
+    { name = "Leon Roberto Braga", email = "leonroberto.braga@uzh.ch" }
 ]
 requires-python = ">=3.9"
 dependencies = [
