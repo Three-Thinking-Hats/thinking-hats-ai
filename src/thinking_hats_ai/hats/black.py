@@ -1,0 +1,2 @@
+class BlackHat:
+    INSTRUCTION = ""
