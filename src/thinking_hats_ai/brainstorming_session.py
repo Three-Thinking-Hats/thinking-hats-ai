@@ -14,7 +14,6 @@ class BrainstormingSession:
         
         try:
             module_name = f"thinking_hats_ai.prompting_techniques.{technique.value}"
-            print(module_name)
             module = importlib.import_module(module_name)
             class_name = technique.value.title().replace("_", "")
             technique_class = getattr(module, class_name)
