@@ -24,3 +24,6 @@ class Hats:
         Hat.YELLOW: YellowHat.INSTRUCTION,
         Hat.BLACK: BlackHat.INSTRUCTION
     }
+    
+    def get_instructions(self, hat):
+        return self.INSTRUCTIONS.get(hat, "Invalid hat specified.")

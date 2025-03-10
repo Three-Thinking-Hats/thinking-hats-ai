@@ -1,6 +1,6 @@
 import importlib
 
-from thinking_hats_ai.hats.hats import Hat
+from thinking_hats_ai.hats.hats import Hat, Hats
 from thinking_hats_ai.prompting_techniques.technique import Technique
 from thinking_hats_ai.utils.api_handler import APIHandler
 
@@ -10,7 +10,7 @@ class BrainstormingSession:
         self.api_handler = APIHandler(api_key)
         
     def generate_idea(self, technique: Technique, hat: Hat, input_text: str):
-        hat_instructions = hat.get_instructions()
+        hat_instructions = Hats().get_instructions(hat)
         
         try:
             module_name = f"six_hats.prompting_techniques.{technique.value}"
@@ -24,5 +24,4 @@ class BrainstormingSession:
         prompt = technique_instance.generate_prompt(input_text, hat_instructions)
         
         response = self.api_handler.get_response(prompt)
-        
         return response

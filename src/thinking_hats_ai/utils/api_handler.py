@@ -1,4 +1,4 @@
-from langchain.chat_models import ChatOpenAI
+from langchain_openai import ChatOpenAI
 from langchain.schema import HumanMessage
 
 class APIHandler:
@@ -7,5 +7,5 @@ class APIHandler:
         self.chat_model = ChatOpenAI(model_name="gpt-4o", openai_api_key=self.api_key)
 
     def get_response(self, prompt):
-        response = self.chat_model([HumanMessage(content=prompt)])
+        response = self.chat_model.invoke([HumanMessage(content=prompt)])
         return response.content
