@@ -21,3 +21,17 @@ thinking-hats-ai = "thinking_hats_ai:main"
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
+
+[tool.ruff]
+line-length = 79 
+target-version = "py39" 
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "ARG"]
+fixable = ["ALL"]
+exclude = ["venv", "migrations", "tests"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space" 
+line-ending = "lf"
