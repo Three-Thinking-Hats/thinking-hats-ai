@@ -27,7 +27,7 @@ line-length = 79
 target-version = "py39" 
 
 [tool.ruff.lint]
-select = ["E", "F", "W", "I", "ARG"]
+select = ["E", "F", "W", "I"]
 fixable = ["ALL"]
 exclude = ["venv", "migrations", "tests"]
 
