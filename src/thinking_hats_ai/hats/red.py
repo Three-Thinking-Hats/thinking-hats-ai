@@ -1,0 +1,2 @@
+class RedHat:
+    INSTRUCTION = ""

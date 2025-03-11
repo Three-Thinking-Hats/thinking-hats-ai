@@ -1,0 +1,2 @@
+class GreenHat:
+    INSTRUCTION = ""

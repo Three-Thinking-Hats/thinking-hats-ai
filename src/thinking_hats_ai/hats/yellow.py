@@ -1,0 +1,2 @@
+class YellowHat:
+    INSTRUCTION = ""
