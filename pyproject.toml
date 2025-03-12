@@ -21,3 +21,19 @@ dependencies = [
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
+
+[tool.ruff]
+line-length = 79
+indent-width = 4 
+target-version = "py39" 
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]
+exclude = ["venv", "migrations", "tests"]
+ignore = ["E203", "E501"]
+flake8-implicit-str-concat.allow-multiline = true
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space" 
+line-ending = "lf"
