@@ -23,9 +23,8 @@ class BrainstormingSession:
         except (ModuleNotFoundError, AttributeError) as e:
             raise ValueError(f"Unsupported technique: {technique}") from e
 
-        prompt = technique_instance.generate_prompt(
-            input_text, hat_instructions
+        response = technique_instance.execute_prompt(
+            input_text, hat_instructions, self.api_handler
         )
 
-        response = self.api_handler.get_response(prompt)
         return response
