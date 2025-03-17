@@ -11,7 +11,7 @@ class Logger:
         self.dev = dev
         self.logger = logging.getLogger(__name__)
         if dev:
-            self.__set_up_logger()
+            self._set_up_logger()
 
     def _set_up_logger(self):
         execution_dir = os.path.dirname(os.path.abspath(sys.argv[0]))
