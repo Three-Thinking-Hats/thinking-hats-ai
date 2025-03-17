@@ -12,13 +12,18 @@ class ChainOfThought(BasePromptingTechnique):
     ):
         template = PromptTemplate(
             input_variables=["hat_instructions", "input_text"],
-            template="Imagine you wear a hat with the following instructions: {hat_instructions}\\n\\n"
+            template="Imagine you wear a hat with the following instructions: {hat_instructions}"
             "This is the current state of the brainstorming: {input_text}"
-            "What would you add from the perspective of the given hat? Justify your answer and give reasoning about you thought process step-by-step:\\n",
+            "What would you add from the perspective of the given hat? Justify your answer and give reasoning about you thought process step-by-step:",
         )
 
         prompt = template.format(
             hat_instructions=hat_instructions, input_text=input_text
         )
+        self.logger.log_prompt(prompt)
 
-        return api_handler.get_response(prompt)
+        response = api_handler.get_response(prompt)
+
+        self.logger.log_response(response)
+
+        return response
