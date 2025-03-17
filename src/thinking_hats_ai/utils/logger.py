@@ -13,7 +13,7 @@ class Logger:
         if dev:
             self.__set_up_logger()
 
-    def __set_up_logger(self):
+    def _set_up_logger(self):
         execution_dir = os.path.dirname(os.path.abspath(sys.argv[0]))
         log_file = os.path.join(
             execution_dir,
@@ -25,7 +25,8 @@ class Logger:
         formatter = logging.Formatter("%(asctime)s - %(message)s")
         file_handler.setFormatter(formatter)
         self.logger.setLevel(logging.INFO)
-        self.logger.addHandler(file_handler)
+        if not self.logger.hasHandlers():
+            self.logger.addHandler(file_handler)
 
     def _wrap_text(self, text):
         return "\n".join(textwrap.wrap(text, width=70))
