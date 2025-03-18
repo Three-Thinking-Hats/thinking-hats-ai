@@ -3,22 +3,40 @@ from langchain.prompts import PromptTemplate
 from thinking_hats_ai.prompting_techniques.base_technique import (
     BasePromptingTechnique,
 )
-from thinking_hats_ai.utils.api_handler import APIHandler
+
+from ..utils.api_handler import APIHandler
+from ..utils.brainstorming_input import BrainstormingInput
+from ..utils.string_utils import list_to_bulleted_string
 
 
 class ChainOfThought(BasePromptingTechnique):
     def execute_prompt(
-        self, input_text, hat_instructions, api_handler: APIHandler
+        self,
+        brainstorming_input: BrainstormingInput,
+        hat_instructions: str,
+        api_handler: APIHandler,
     ):
+        brainstorming_input.question
         template = PromptTemplate(
-            input_variables=["hat_instructions", "input_text"],
-            template="Imagine you wear a hat with the following instructions: {hat_instructions}\\n\\n"
-            "This is the current state of the brainstorming: {input_text}"
-            "What would you add from the perspective of the given hat? Justify your answer and give reasoning about you thought process step-by-step:\\n",
+            input_variables=[
+                "hat_instructions",
+                "question",
+                "ideas",
+                "length",
+            ],
+            template="Imagine you wear a hat with the following instructions: {hat_instructions}\n"
+            "This is the question that was asked for the brainstorming: {question}\n"
+            "These are the currently developed ideas in the brainstorming:\n{ideas}\n"
+            "What would you add from the perspective of the given hat? Justify your answer and give reasoning about you thought process step-by-step.\n"
+            "Please provide a response that is {length} long.",
         )
 
         prompt = template.format(
-            hat_instructions=hat_instructions, input_text=input_text
+            hat_instructions=hat_instructions,
+            question=brainstorming_input.question,
+            ideas=list_to_bulleted_string(brainstorming_input.ideas),
+            length=brainstorming_input.response_length,
         )
+        response = api_handler.get_response(prompt)
 
-        return api_handler.get_response(prompt)
+        return response
