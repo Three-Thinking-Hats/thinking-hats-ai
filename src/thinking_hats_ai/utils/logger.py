@@ -29,22 +29,25 @@ class Logger:
             self.logger.addHandler(file_handler)
 
     def _wrap_text(self, text):
-        return "\n".join(textwrap.wrap(text, width=70))
+        return "\n".join(
+            "\n".join(textwrap.wrap(line, width=120))
+            for line in text.split("\n")
+        )
 
     def log_prompt(self, prompt, notes="No notes"):
         if not self.dev:
             return
         wrapped_prompt = self._wrap_text(prompt)
-        self.logger.info(f"PROMPT - {notes}\n {wrapped_prompt}")
+        self.logger.info(f"PROMPT - {notes}\n{wrapped_prompt}")
 
     def log_response(self, response, notes="No notes"):
         if not self.dev:
             return
         wrapped_response = self._wrap_text(response)
-        self.logger.info(f"RESPONSE - {notes}\n {wrapped_response}")
+        self.logger.info(f"RESPONSE - {notes}\n{wrapped_response}")
 
     def log_response_and_prompt(self, response, notes="No notes"):
         wrapped_response = self._wrap_text(response)
         self.logger.info(
-            f"RESPONSE AND PROMPT (Multiagent) - {notes}\n {wrapped_response}"
+            f"RESPONSE AND PROMPT (Multiagent) - {notes}\n{wrapped_response}"
         )
