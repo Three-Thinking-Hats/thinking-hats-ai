@@ -29,6 +29,7 @@ class ChainOfThought(BasePromptingTechnique):
             "These are the currently developed ideas in the brainstorming:\n{ideas}\n"
             "What would you add from the perspective of the given hat? Justify your answer and give reasoning about you thought process step-by-step.\n"
             "Please provide a response that is {length} long.",
+
         )
 
         prompt = template.format(
@@ -37,6 +38,11 @@ class ChainOfThought(BasePromptingTechnique):
             ideas=list_to_bulleted_string(brainstorming_input.ideas),
             length=brainstorming_input.response_length,
         )
+
+        self.logger.log_prompt(prompt)
+
         response = api_handler.get_response(prompt)
+
+        self.logger.log_response(response)
 
         return response
