@@ -10,20 +10,19 @@
 
 
 ## Table of Contents
-- [Main Features](#main-features)
-    - [How to use](#how-to-use)
+- [Use of Package](#use-of-package)
+    - [Example script](#example-script)
     - [Hats](#hats)
     - [Prompting techniques](#prompting-techniques)
     - [Developer mode](#developer-mode)
 - [Installation](#installation)
 - [Dependencies](#dependencies)
-- [Use of Package](#use-of-package)
 - [Background](#background)
 - [Creators](#creators)
 
 
-## Main Features
-### How to use
+## Use of Package
+### Example script
 This example uses the `CHAIN_OF_THOUGHT` [prompting techniques](#prompting-techniques) and the `BLACK` [hat](#hats) for the personality. It also uses [developer mode](#developer-mode) to log the interaction in a separate file.
 ```python
 import thinking_hats_ai
@@ -81,10 +80,6 @@ pip install thinking-hats-ai
 
 ## Dependencies
 - [LangChain - A framework for developing applications powered by language models](https://www.langchain.com)
-
-
-## Use of package
-
 
 
 ## Background
