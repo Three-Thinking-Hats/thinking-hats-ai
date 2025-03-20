@@ -14,6 +14,7 @@
     - [Example script](#example-script)
     - [Hats](#hats)
     - [Prompting techniques](#prompting-techniques)
+    - [Brainstorming-input](#brainstorming-input)
     - [Developer mode](#developer-mode)
 - [Installation](#installation)
 - [Dependencies](#dependencies)
@@ -25,18 +26,28 @@
 ### Example script
 This example uses the `CHAIN_OF_THOUGHT` [prompting techniques](#prompting-techniques) and the `BLACK` [hat](#hats) for the personality. It also uses [developer mode](#developer-mode) to log the interaction in a separate file.
 ```python
+### Import package
 import thinking_hats_ai
 
+### Create session
 instance = thinking_hats_ai.BrainstormingSession('YOUR-OPENAI-API-KEY')
-
 instance.dev = True
 
+### Define current status
+brainstormingInput = thinking_hats_ai.BrainstormingInput(
+    question='how could you make students come to class more often even though there are podcasts provided for each lecture?',
+    ideas=["Implement an interactive class participation system with incentives, such as extra credit or digital badges, encouraging students to attend and engage actively.","Introduce mandatory interactive workshops that supplement lecture content with hands-on activities and problem-solving sessions."],
+    response_length='max 10 sentences'
+)
+
+### Generate output
 idea = instance.generate_idea(
     thinking_hats_ai.Technique.CHAIN_OF_THOUGHT,
     thinking_hats_ai.Hat.BLACK,
     'how could you make students come to class more often even though there are podcasts provided for each lecture?'
 )
 
+### Print output
 print(idea)
 ```
 
@@ -58,6 +69,15 @@ The different prompting techniques help to analyse different approaches of idea 
 Technique        | Explanation
 ----             | ----
 CHAIN_OF_THOUGHT | TODO
+
+
+### Brainstorming-input
+The instance of BrainstormingInput allows you to pass the brainstorming `question`, `ideas`and `response_length` to the generation of an idea.
+Variable Name    | Explanation
+----             | ----
+question         | This variable takes a `string`, a question what the ideas are about
+ideas            | This variable takes a `list of strings` where each string is a idea from the brainstorming
+response_length  | This variable takes a `string` which will control the length of the answer. You can say "10 sentences" but also things like "similar to the other ideas"
 
 
 ### Developer mode
