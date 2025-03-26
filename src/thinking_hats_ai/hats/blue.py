@@ -1,6 +1,3 @@
-from thinking_hats_ai.hats.hats import Hat, Hats
-
-
 class BlueHat:
     INSTRUCTION = """You are the orchestrator of the brainstorming session.
 You are for the organisation and managment of thinking.
@@ -14,7 +11,7 @@ Green Hat:
 Red Hat:
 White Hat:
 Yellow Hat:
-  
+
 If it is the beginning of a session you should lay out what is to be achieved,
 think about the agenda and what other hats hats need to be used to best achieve the goals.
 If the session is already ongoing (during a session) you should ensure that people keep to the relevant hats and maintain dicipline. You need to make sure
