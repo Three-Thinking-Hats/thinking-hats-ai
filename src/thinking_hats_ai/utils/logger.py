@@ -19,6 +19,12 @@ class Logger:
             execution_dir,
             f"{self.technique_name}{datetime.now().strftime('%Y%m%d_%H%M%S')}.log",
         )
+        log_folder = os.path.join(execution_dir, "logs")
+        os.makedirs(log_folder, exist_ok=True)
+        log_file = os.path.join(
+            log_folder,
+            f"{self.technique_name}{datetime.now().strftime('%Y%m%d_%H%M%S')}.log",
+        )
         file_handler = logging.FileHandler(
             log_file, mode="w", encoding="utf-8"
         )
