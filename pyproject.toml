@@ -1,23 +1,35 @@
 [project]
 name = "thinking-hats-ai"
-version = "0.1.2"
-description = "Add your description here"
+version = "0.2"
+description = "thinking-hats-ai is a Python package that facilitates idea generation by following Edward de Bono's Six Thinking Hats methodology from his Book. It enables you to generate ideas by selecting one of the six hats and lets you choose one of the implemented prompting technique to follow while generating the idea."
 readme = "README.md"
 authors = [
-    { name = "Marc Timothy Huber", email = "marctimothy.huber@uzh.ch" }
-]
-maintainers = [
-    { name = "Timon Derboven", email = "timon.derboven@uzh.ch" },
-    { name = "Leon Roberto Braga", email = "leonroberto.braga@uzh.ch" }
+    { name = "Three Thinking Hats" }
 ]
 requires-python = ">=3.9"
 dependencies = [
     "langchain>=0.3.20",
+    "langchain-openai",
+    "langchain-community",
+    "urllib3<2.0.0",
 ]
-
-[project.scripts]
-thinking-hats-ai = "thinking_hats_ai:main"
 
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
+
+[tool.ruff]
+line-length = 79
+indent-width = 4 
+target-version = "py39" 
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]
+exclude = ["venv", "migrations", "tests"]
+ignore = ["E203", "E501"]
+flake8-implicit-str-concat.allow-multiline = true
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space" 
+line-ending = "lf"
