@@ -1,6 +1,6 @@
 [project]
-name = "thinking-hats-ai"
-version = "0.1.2"
+name = "thinking-hats-ai is a Python package that facilitates idea generation by following Edward de Bono's Six Thinking Hats methodology from his Book. It enables you to generate ideas by selecting one of the six hats and lets you choose one of the implemented prompting technique to follow while generating the idea."
+version = "0.2"
 description = "Add your description here"
 readme = "README.md"
 authors = [
