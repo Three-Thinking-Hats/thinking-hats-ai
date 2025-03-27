@@ -4,11 +4,7 @@ version = "0.1.2"
 description = "Add your description here"
 readme = "README.md"
 authors = [
-    { name = "Marc Timothy Huber", email = "marctimothy.huber@uzh.ch" }
-]
-maintainers = [
-    { name = "Timon Derboven", email = "timon.derboven@uzh.ch" },
-    { name = "Leon Roberto Braga", email = "leonroberto.braga@uzh.ch" }
+    { name = "Three Thinking Hats" }
 ]
 requires-python = ">=3.9"
 dependencies = [
