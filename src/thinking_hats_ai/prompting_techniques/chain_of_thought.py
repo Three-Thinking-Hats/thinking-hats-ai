@@ -16,7 +16,6 @@ class ChainOfThought(BasePromptingTechnique):
         hat_instructions: str,
         api_handler: APIHandler,
     ):
-        brainstorming_input.question
         template = PromptTemplate(
             input_variables=[
                 "hat_instructions",
@@ -29,7 +28,6 @@ class ChainOfThought(BasePromptingTechnique):
             "These are the currently developed ideas in the brainstorming:\n{ideas}\n"
             "What would you add from the perspective of the given hat? Justify your answer and give reasoning about you thought process step-by-step.\n"
             "Please provide a response that is {length} long.",
-
         )
 
         prompt = template.format(
