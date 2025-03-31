@@ -32,6 +32,7 @@ class ContrastivePrompting(BasePromptingTechnique):
             "For example, imagine you received a persona like 'you always want to be realistic' for the question 'How can we make a cool birthday party for friends?' Consider these ideas: ['make a karaoke bar', 'have some pizza', 'make a huge party with 10,000 visitors in the White House'].\n"
             "- A GOOD Response might be: 'Let's host a cozy, realistically planned barbeque party at a friend's house.'\n"
             "- A BAD Response might be: 'Let's throw a huge, impractical party in the White House.\n'"
+            "- A BAD Response might be: 'I am always realistic, a party in the white house isn't possible\n'"
             "In this example, the good response aligns with the realistic persona while the bad response ignores context and feasibility. Keep this contrast in mind.\n"
 
             "Your Task: "
