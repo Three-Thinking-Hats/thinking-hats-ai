@@ -80,8 +80,9 @@ class ChainOfVerification(BasePromptingTechnique):
             ],
             template="There was a Brainstorming and following contribution came up {response1}\n"
             "Use the verification questions and check weither you can answer all of them with 'YES'\n"
-            "If all of them are successfull, return 'Verification Successfull' else return only the ones which weren't successfull and say why\n"
-            "Format your answer like: 'Verification was Successful' or '2. (Reason why it failed) 5. (Reason why it failed)' using the correct numbers.\n"
+            "If all of them are successfull, return 'Verification Successfull' else return for all why they passed or failed\n"
+            "Format your answer like this if all passed: 'Verification was Successful 1. PASS (reason) 2. PASS (reason) 3. PASS (reason) 4. PASS (reason) 5. PASS (reason)'\n"
+            "Format your answer like this if one or more failed: 'Verification was Failed 1. PASS/FAIL (reason) 2. PASS/FAIL (reason) 3. PASS/FAIL (reason) 4. PASS/FAIL (reason) 5. PASS/FAIL (reason)'\n"
             "Verification questions: {response2}"
         )
         prompt3 = template.format(
@@ -93,10 +94,11 @@ class ChainOfVerification(BasePromptingTechnique):
 
         response3 = api_handler.get_response(prompt3)
 
-        self.logger.log_response(response3, notes="3. Generated Verification Questions")
+        self.logger.log_response(response3, notes="3. Executed Verification")
 
         ### 4. Return contribution if verification was successfull
-        if response3 == "Verification was Successful":
+        if response3.startswith("Verification was Successful"):
+            self.logger.log_response(response1, notes="4. Final response (not Optimized)")
             return response1
 
         ### 4. Call -> Optimize contribution
@@ -128,6 +130,6 @@ class ChainOfVerification(BasePromptingTechnique):
 
         response4 = api_handler.get_response(prompt4)
 
-        self.logger.log_response(response4, notes="4. Optimized Contribution")
+        self.logger.log_response(response4, notes="4. Final response (Optimized)")
 
         return response4
