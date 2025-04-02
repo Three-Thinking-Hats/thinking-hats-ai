@@ -9,25 +9,29 @@ from ..utils.brainstorming_input import BrainstormingInput
 from ..utils.string_utils import list_to_bulleted_string
 
 
-class ChainOfThought(BasePromptingTechnique):
+class EmotionPrompt(BasePromptingTechnique):
     def execute_prompt(
         self,
         brainstorming_input: BrainstormingInput,
         hat_instructions: str,
         api_handler: APIHandler,
     ):
+        self_monitoring = "This is very important to my career"
+        social_cognitive_theory = "Embrace challenges as opportunities for growth. Each obstacle you overcome brings you closer to success."
+        cognitive_emotion_regulation = "You'd better be sure."
         brainstorming_input.question
         template = PromptTemplate(
             input_variables=[
                 "hat_instructions",
                 "question",
                 "ideas",
+                "emotion",
                 "length",
             ],
             template="Imagine you wear a thinking hat, which leads your thoughts with the following instructions: {hat_instructions}\n"
             "This is the question that was asked for the brainstorming: {question}\n"
             "These are the currently developed ideas in the brainstorming:\n{ideas}\n"
-            "What would you add from the perspective of the given hat? Justify your answer and give reasoning about you thought process step-by-step.\n"
+            "What would you add from the perspective of the given hat? {emotion}\n"
             "Please provide a response that is {length} long.",
         )
 
@@ -35,10 +39,11 @@ class ChainOfThought(BasePromptingTechnique):
             hat_instructions=hat_instructions,
             question=brainstorming_input.question,
             ideas=list_to_bulleted_string(brainstorming_input.ideas),
+            emotion=cognitive_emotion_regulation,
             length=brainstorming_input.response_length,
         )
 
-        self.logger.log_prompt(prompt)
+        self.logger.log_prompt(prompt, "cognitive_emotion_regulation")
 
         response = api_handler.get_response(prompt)
 
