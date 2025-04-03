@@ -42,13 +42,13 @@ class Logger:
         if not self.dev:
             return
         wrapped_prompt = self._wrap_text(prompt)
-        self.logger.info(f"PROMPT - {notes}\n{wrapped_prompt}")
+        self.logger.info(f"PROMPT - {notes}\n{wrapped_prompt}\n")
 
     def log_response(self, response, notes="No notes"):
         if not self.dev:
             return
         wrapped_response = self._wrap_text(response)
-        self.logger.info(f"RESPONSE - {notes}\n{wrapped_response}")
+        self.logger.info(f"RESPONSE - {notes}\n{wrapped_response}\n")
 
     def log_response_and_prompt(self, response, notes="No notes"):
         wrapped_response = self._wrap_text(response)
