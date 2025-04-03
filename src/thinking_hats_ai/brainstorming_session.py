@@ -3,7 +3,7 @@ import os
 
 from dotenv import load_dotenv
 
-from thinking_hats_ai.hats.hats import Hat, Hats
+from thinking_hats_ai.hats.hats import Hat
 from thinking_hats_ai.prompting_techniques.technique import Technique
 from thinking_hats_ai.utils.api_handler import APIHandler
 from thinking_hats_ai.utils.brainstorming_input import BrainstormingInput
@@ -15,9 +15,12 @@ class BrainstormingSession:
         self.api_handler = APIHandler(api_key)
         self.dev = dev
 
-    def generate_idea(self, technique: Technique, hat: Hat, brainstorming_input: BrainstormingInput):
-        hat_instructions = Hats().get_instructions(hat)
-
+    def generate_idea(
+        self,
+        technique: Technique,
+        hat: Hat,
+        brainstorming_input: BrainstormingInput,
+    ):
         try:
             module_name = (
                 f"thinking_hats_ai.prompting_techniques.{technique.value}"
@@ -30,7 +33,7 @@ class BrainstormingSession:
             raise ValueError(f"Unsupported technique: {technique}") from e
 
         response = technique_instance.execute_prompt(
-            brainstorming_input, hat_instructions, self.api_handler
+            brainstorming_input, hat, self.api_handler
         )
 
         return response
