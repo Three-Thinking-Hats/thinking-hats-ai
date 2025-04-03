@@ -17,6 +17,7 @@ class ChainOfThought(BasePromptingTechnique):
         hat: Hat,
         api_handler: APIHandler,
     ):
+        api_handler.change_model("o3-mini")
         template = PromptTemplate(
             input_variables=[
                 "hat_instructions",
@@ -27,7 +28,7 @@ class ChainOfThought(BasePromptingTechnique):
             template="Imagine you wear a thinking hat, which leads your thoughts with the following instructions: {hat_instructions}\n"
             "This is the question that was asked for the brainstorming: {question}\n"
             "These are the currently developed ideas in the brainstorming:\n{ideas}\n"
-            "What would you add from the perspective of the given hat? Justify your answer and give reasoning about you thought process step-by-step.\n"
+            "What would you add from the perspective of the given hat?\n"
             "Please provide a response that is {length} long.",
         )
 
