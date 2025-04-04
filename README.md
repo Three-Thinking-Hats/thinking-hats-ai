@@ -100,6 +100,8 @@ pip install thinking-hats-ai
 
 ## Dependencies
 - [LangChain - A framework for developing applications powered by language models](https://www.langchain.com)
+- [AG2 - A multi-agent framework for building AI-driven systems](https://ag2.ai)
+- [Autogen - A framework for enabling autonomous AI agents to collaborate](https://microsoft.github.io/autogen/stable//index.html)
 
 
 ## Background
