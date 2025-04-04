@@ -1,5 +1,6 @@
 from langchain.prompts import PromptTemplate
 
+from thinking_hats_ai.hats.hats import Hat, Hats
 from thinking_hats_ai.prompting_techniques.base_technique import (
     BasePromptingTechnique,
 )
@@ -13,7 +14,7 @@ class ChainOfThought(BasePromptingTechnique):
     def execute_prompt(
         self,
         brainstorming_input: BrainstormingInput,
-        hat_instructions: str,
+        hat: Hat,
         api_handler: APIHandler,
     ):
         brainstorming_input.question
@@ -32,16 +33,15 @@ class ChainOfThought(BasePromptingTechnique):
         )
 
         prompt = template.format(
-            hat_instructions=hat_instructions,
+            hat_instructions=Hats().get_instructions(hat),
             question=brainstorming_input.question,
             ideas=list_to_bulleted_string(brainstorming_input.ideas),
             length=brainstorming_input.response_length,
         )
-
-        self.logger.log_prompt(prompt)
-
         response = api_handler.get_response(prompt)
 
+        self.logger.start_logger(hat.value)
+        self.logger.log_prompt(prompt)
         self.logger.log_response(response)
 
         return response
