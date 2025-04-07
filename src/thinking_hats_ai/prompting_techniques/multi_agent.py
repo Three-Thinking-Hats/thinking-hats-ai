@@ -19,35 +19,22 @@ class MultiAgent(BasePromptingTechnique):
         brainstorming_input.question
         template = PromptTemplate(
             input_variables=[
-                "hat_instructions",
-                "question",
-                "ideas",
-                "length",
+                "hat_instructions"
             ],
-            template= "You are a proactive and insightful contributor in our brainstorming session."
-            "Your role is to embody the unique characteristics assigned to you later, based on Edward de Bono's thinking hat methodology."
-            "Bring your perspective fully into the discussion, focusing on the principles and mindset linked to your designated hat."
-            "Engage with enthusiasm, challenge ideas constructively, and expand on concepts using the approach that aligns with your persona's assigned 'thinking hat."
-            "Assigned thinking hat instructions: {hat_instructions}\n"
-            "Make your response look like it came from a participant in a brainstorming session and adapt to the writing style of the generated ideas"
-            "Do not tell what perspective you are writing from, but make it clear from the content of your response."
-            "This is the question that was asked for the brainstorming: {question}\n"
-            "These are the currently developed ideas in the brainstorming:\n{ideas}\n"
-            "What would you add from the perspective of the given persona?\n"
-            "Please provide a response that is {length} long.",
+            template= "The task for a multi agent prompt is, to create a contribution to a brainstorming from the point of view of the following persona: {hat_instructions}\n"
+            "They will receive a brainstorming question and a list of previously generated ideas, along to the task to create a contribution\n"
+            "Your task is, to create personas as for the multi agent. There must be at least 3 personas, which are all different from each other.\n"
+            "Return the personas as a json'\n"
         )
 
         prompt = template.format(
             hat_instructions=hat_instructions,
-            question=brainstorming_input.question,
-            ideas=list_to_bulleted_string(brainstorming_input.ideas),
-            length=brainstorming_input.response_length,
         )
 
-        self.logger.log_prompt(prompt)
+        self.logger.log_prompt(prompt, notes="META PROMPT - GENERATE PERSONAS")
 
         response = api_handler.get_response(prompt)
 
-        self.logger.log_response(response)
+        self.logger.log_response(response, notes="META PROMPT - GENERATED PERSONAS")
 
         return response
