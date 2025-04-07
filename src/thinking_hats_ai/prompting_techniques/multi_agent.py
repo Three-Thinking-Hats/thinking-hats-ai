@@ -108,7 +108,7 @@ class MultiAgent(BasePromptingTechnique):
             f"Based on this discussion, provide ONE clear, concise final contribution to the brainstorming question:\n"
             f"'{brainstorming_input.question}'\n\n"
             f"The contribution should reflect the collective insights and be approximately {brainstorming_input.response_length} long.\n"
-            f"Only return the final contribution—no introduction, no extra commentary."
+            f"Only return the final contribution—no introduction, no extra commentary. Do not put your response in quotation marks."
         )
 
         self.logger.log_prompt(final_prompt, notes="FINAL CONTRIBUTION PROMPT")
