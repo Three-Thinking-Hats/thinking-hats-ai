@@ -6,3 +6,4 @@ class Technique(Enum):
     PERSONA_PATTERN = "persona_pattern"
     CONTRASTIVE_PROMPTING = "contrastive_prompting"
     CHAIN_OF_VERIFICATION = "chain_of_verification"
+    MULTI_AGENT = "multi_agent"
