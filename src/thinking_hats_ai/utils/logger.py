@@ -29,8 +29,8 @@ class Logger:
         formatter = logging.Formatter("%(asctime)s - %(message)s")
         file_handler.setFormatter(formatter)
         self.logger.setLevel(logging.INFO)
-        if not self.logger.hasHandlers():
-            self.logger.addHandler(file_handler)
+        self.logger.handlers.clear()
+        self.logger.addHandler(file_handler)
 
     def _wrap_text(self, text):
         return "\n".join(
