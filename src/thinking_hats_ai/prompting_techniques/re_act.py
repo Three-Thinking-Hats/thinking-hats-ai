@@ -6,6 +6,7 @@ from langchain.chat_models import ChatOpenAI
 from langchain_community.tools import WikipediaQueryRun
 from langchain_community.utilities import WikipediaAPIWrapper
 
+from thinking_hats_ai.hats.hats import Hat
 from thinking_hats_ai.prompting_techniques.base_technique import (
     BasePromptingTechnique,
 )
@@ -19,7 +20,7 @@ class ReAct(BasePromptingTechnique):
     def execute_prompt(
         self,
         brainstorming_input: BrainstormingInput,
-        hat_instructions: str,
+        hat: Hat,
         api_handler: APIHandler,
     ):
         input_str = (
@@ -52,5 +53,8 @@ class ReAct(BasePromptingTechnique):
         prompt = {"input": input_str}
         response = agent.invoke(prompt)
 
-        self.logger.log_response(response)
+        self.logger.start_logger(hat.value)
+        self.logger.log_prompt(prompt)
+        response = api_handler.get_response(prompt)
+
         return response
