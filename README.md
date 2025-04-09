@@ -55,9 +55,9 @@ print(idea)
 The different hats act as a predefined persona according to Edward de Bono's book about the six thinking hats in brainstorming. You can select which persona should be used for your instance.
 Hat   | Role
 ----  | ----
-BLACK | TODO
+BLACK | The Black Hat represents critical judgment and caution, focusing on identifying potential risks, weaknesses, and negative outcomes of ideas to ensure they are practical and safe.
 WHITE | TODO
-YELLOW| TODO
+YELLOW| The Yellow Hat represents optimism and positivity, focusing on identifying the benefits, strengths, and potential value of ideas to highlight why they are worth pursuing.
 GREEN | TODO
 BLUE  | TODO
 RED   | TODO
@@ -66,9 +66,13 @@ source: [Book](https://swisscovery.slsp.ch/permalink/41SLSP_NETWORK/1ufb5t2/alma
 
 ### Prompting techniques
 The different prompting techniques help to analyse different approaches of idea generation for each hat. While implementing, we analyzed which of the techniques work best for which hat.
-Technique        | Explanation
-----             | ----
-CHAIN_OF_THOUGHT | TODO
+Technique               | Explanation
+----                    | ----
+CHAIN_OF_THOUGHT        | TODO
+PERSONA_PATTERN         | The Persona Pattern technique generates ideas by adopting predefined persona, offering unique perspective and goals.
+CHAIN_OF_VERIFICATION   | The Chain of Verification technique refines ideas by chaining prompts, generating verification questions, and analyzing responses.
+CONTRASTIVE_PROMPTING   | The Contrastive Prompting technique uses examples of good and bad responses to guide the agent towards an optimal output.
+MULTI_AGENT             | The Multi-Agent technique involves multiple agents collaborating on a topic before converging on a refined final output.
 
 
 ### Brainstorming-input

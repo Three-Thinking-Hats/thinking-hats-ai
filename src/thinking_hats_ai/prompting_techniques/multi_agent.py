@@ -34,7 +34,7 @@ class MultiAgent(BasePromptingTechnique):
             "Return the a json it should include a name (no whitespaces allowed) and a system_message for each persona'\n"
             "The json should be a list of dictionaries, but this list should not be a dictionary itself!"
             "Do ONLY return a valid json!"
-            "Do not use ```json or ```\n"
+            "Do not use ```json or ``` just return a list of dictionaries\n"
         )
 
         prompt = template.format(
