@@ -10,20 +10,18 @@ class Logger:
         self.technique_name = technique_name
         self.dev = dev
         self.logger = logging.getLogger(__name__)
-        if dev:
-            self._set_up_logger()
 
-    def _set_up_logger(self):
+    def start_logger(self, file_name):
+        if self.dev:
+            self._set_up_logger(file_name)
+
+    def _set_up_logger(self, file_name):
         execution_dir = os.path.dirname(os.path.abspath(sys.argv[0]))
-        log_file = os.path.join(
-            execution_dir,
-            f"{self.technique_name}{datetime.now().strftime('%Y%m%d_%H%M%S')}.log",
-        )
         log_folder = os.path.join(execution_dir, "logs")
         os.makedirs(log_folder, exist_ok=True)
         log_file = os.path.join(
             log_folder,
-            f"{self.technique_name}{datetime.now().strftime('%Y%m%d_%H%M%S')}.log",
+            f"{self.technique_name}-{file_name}-{datetime.now().strftime('%Y%m%d_%H%M%S')}.log",
         )
         file_handler = logging.FileHandler(
             log_file, mode="w", encoding="utf-8"
@@ -31,8 +29,8 @@ class Logger:
         formatter = logging.Formatter("%(asctime)s - %(message)s")
         file_handler.setFormatter(formatter)
         self.logger.setLevel(logging.INFO)
-        if not self.logger.hasHandlers():
-            self.logger.addHandler(file_handler)
+        self.logger.handlers.clear()
+        self.logger.addHandler(file_handler)
 
     def _wrap_text(self, text):
         return "\n".join(
