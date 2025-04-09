@@ -57,7 +57,7 @@ class MultiAgent(BasePromptingTechnique):
             for persona in response:
                 agent = ConversableAgent(
                     persona["name"],
-                    system_message=(persona["system_message"])
+                    system_message=(persona["system_message"] + "\n If you found a contribution meeting the initial critera respond ONLY with 'FINAL: (CONTRIBUTION)', do not add quotation marks or any other content, do not make a final contribution while still saying anything else. Make sure everyone at least contributed once before you allign.")
                 )
                 agents.append(agent)
 
@@ -71,7 +71,8 @@ class MultiAgent(BasePromptingTechnique):
         manager = GroupChatManager(
             name="group_manager",
             groupchat=groupchat,
-            llm_config=llm_config
+            llm_config=llm_config,
+            is_termination_msg=lambda x: "FINAL:" in (x.get("content", "") or "").upper(),
         )
         # 5. Run the chat
         response = manager.run(
@@ -80,14 +81,15 @@ class MultiAgent(BasePromptingTechnique):
                 "Our goal is to create a contribution to the brainstorming from the point of view of the following persona: {hat_instructions}\n" \
                 "These are the currently developed ideas in the brainstorming:\n{ideas}\n" \
                 "Discuss what you could contribute to the brainstorming while sticking to the defined persona. Your goal is to either create a new contribution or use the existing ones. It may depend on the persona defined above.\n" \
-                "and should be {length} long.".format(
+                "The discussion should take at least 6 turns, and each persona should contribute at least once. While discussing the length isn't important, only for the final contribution.\n" \
+                "The final contribution should be {length} long and fullfill the previous criteria.".format(
                 question=brainstorming_input.question,
                 ideas=list_to_bulleted_string(brainstorming_input.ideas),
                 hat_instructions=hat_instructions,
                 length=brainstorming_input.response_length
             )
         )
-        # 6. Iterate through the chat automatically with console output
+        # 6. Iterate through the chat automatically with & without console output
         if not self.logger.dev:
             with redirect_stdout(io.StringIO()):
                 response.process()
@@ -96,12 +98,20 @@ class MultiAgent(BasePromptingTechnique):
 
         # 6.1 Collect the full conversation transcript
         chat_transcript = ""
-        for msg in response.messages:
+        for msg in groupchat.messages:
             name = msg.get("name", "Unknown")
             content = msg.get("content", "")
-            chat_transcript += f"{name}: {content}\n"
+            contrib = f"{name}: {content}\n"
+            chat_transcript += contrib
+            self.logger.log_response_and_prompt(contrib, notes="CHAT CONTRIBUTION")
 
-        # 6.2 Ask for a single final contribution
+        # log if found final
+        lastMessage = groupchat.messages[-1].get("content","")
+        if lastMessage.startswith("FINAL:"):
+            final = lastMessage.replace("FINAL: ", "", 1)
+            return final
+
+        # 6.2 If no final contribution found yet, create one
         final_prompt = (
             f"Here is the transcript of a brainstorming discussion among multiple personas:\n\n"
             f"{chat_transcript}\n\n"
