@@ -30,6 +30,7 @@ class MultiAgent(BasePromptingTechnique):
             template= "The task for a multi agent prompt is, to create a contribution to a brainstorming from the point of view of the following persona: {hat_instructions}\n"
             "They will receive a brainstorming question and a list of previously generated ideas, along to the task to create a contribution\n"
             "Your task is, to create personas as for the multi agent. There must be at least 3 personas, which are all different from each other.\n"
+            "Make sure that at least one of the personas suits the description of the persona, and leads the conversation into this direction.\n"
             "Return the a json it should include a name (no whitespaces allowed) and a system_message for each persona'\n"
             "The json should be a list of dictionaries, but this list should not be a dictionary itself!"
             "Do ONLY return a valid json!"
@@ -57,7 +58,7 @@ class MultiAgent(BasePromptingTechnique):
             for persona in response:
                 agent = ConversableAgent(
                     persona["name"],
-                    system_message=(persona["system_message"] + "\n If you found a contribution meeting the initial critera respond ONLY with 'FINAL: (CONTRIBUTION)', do not add quotation marks or any other content, do not make a final contribution while still saying anything else. Make sure everyone at least contributed once before you allign.")
+                    system_message=(persona["system_message"] + "\n If you found a contribution meeting the initial critera respond ONLY with 'FINAL: (CONTRIBUTION)', do not add quotation marks or any other content, do not make a final contribution while still saying anything else. Make sure everyone at least contributed three times before you allign.")
                 )
                 agents.append(agent)
 
@@ -65,12 +66,13 @@ class MultiAgent(BasePromptingTechnique):
         groupchat = GroupChat(
             agents=agents,
             speaker_selection_method="auto",
-            messages=[]
+            max_round=30
         )
         # 4. Create manager
         manager = GroupChatManager(
             name="group_manager",
             groupchat=groupchat,
+            system_message="you are the leader of the discussion. You want to assure that the agents do not allign to quickly (not before everyone contributed at least twice). You ensure that the task will be fullfilled.",
             llm_config=llm_config,
             is_termination_msg=lambda x: "FINAL:" in (x.get("content", "") or "").upper(),
         )
@@ -81,7 +83,7 @@ class MultiAgent(BasePromptingTechnique):
                 "Our goal is to create a contribution to the brainstorming from the point of view of the following persona: {hat_instructions}\n" \
                 "These are the currently developed ideas in the brainstorming:\n{ideas}\n" \
                 "Discuss what you could contribute to the brainstorming while sticking to the defined persona. Your goal is to either create a new contribution or use the existing ones. It may depend on the persona defined above.\n" \
-                "The discussion should take at least 6 turns, and each persona should contribute at least once. While discussing the length isn't important, only for the final contribution.\n" \
+                "The discussion should take at least 19 turns, and each persona should contribute at least three times. While discussing the length isn't important, only for the final contribution.\n" \
                 "The final contribution should be {length} long and fullfill the previous criteria.".format(
                 question=brainstorming_input.question,
                 ideas=list_to_bulleted_string(brainstorming_input.ideas),
