@@ -6,8 +6,9 @@ dist/
 wheels/
 *.egg-info
 
-# Multi Agent
+# others
 .cache
+.DS_Store
 
 # Virtual environments
 .venv
