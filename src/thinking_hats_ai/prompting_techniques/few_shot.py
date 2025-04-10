@@ -49,7 +49,7 @@ class FewShot(BasePromptingTechnique):
             "These are the currently developed ideas in the brainstorming session:\n{ideas}\n\n"
             "Here are some examples of how this thinking hat would respond to other brainstorming questions:\n{examples}\n\n"
             "Now, considering the current question: What would you add from the perspective of the given hat?\n"
-            "Please provide a response that is {length} long.",
+            "Please provide a response with a length of {length}",
         )
 
         prompt = template.format(

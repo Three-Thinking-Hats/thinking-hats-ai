@@ -53,7 +53,7 @@ class System2Attention(BasePromptingTechnique):
             ],
             template="{rewritten_response}\n"
             "What would you add from the perspective of the given hat?\n"
-            "Please provide a response that is {length} long.",
+            "Please provide a response with a length of {length}",
         )
 
         final_prompt = final_template.format(
