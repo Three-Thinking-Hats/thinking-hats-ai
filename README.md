@@ -69,26 +69,26 @@ BLACK | The Black Hat represents critical judgment and caution, focusing on iden
 YELLOW| The Yellow Hat represents optimism and positivity, focusing on identifying the benefits, strengths, and potential value of ideas to highlight why they are worth pursuing.
 BLUE  | The Blue Hat represents control, organization, and overview, guiding the thinking process, setting objectives, managing the discussion, and ensuring that the Six Thinking Hats method is followed effectively.
 RED   | The Red Hat represents emotions, intuition, and gut feelings, allowing participants to express their instincts or emotional reactions to ideas without the need for justification or logic.
+
 source: [Book](https://swisscovery.slsp.ch/permalink/41SLSP_NETWORK/1ufb5t2/alma991081046019705501)
 
 
 ### Prompting techniques
 The different prompting techniques help to analyse different approaches of idea generation for each hat. While implementing, we analyzed which of the techniques work best for which hat.
-Technique               | Explanation
-----                    | ----
-CHAIN_OF_THOUGHT        | Chain of Thought leverages GPT-o1's advanced reasoning capabilities.
-CHAINING                | Chaining creates a chain of three steps: 1. Understand the thinking hat; 2. Use the perspective of the hat on the brainstorming context; 3. Refine the generated response and make sure it aligns with the thinking hat.
-FEW_SHOT                | The Few Shot method first uses a meta prompt to generate three examples of how the given hat would reply in a brainstorming session. These examples are then used as guidance for generating a response to the given brainstorming session.
-SYSTEM_2_ATTENTION      | S2A is a two step technique, that first prompt organizes and filters the ideas from the brainstorming session and then uses this optimized input for the next prompt.
-PERSONA_PATTERN         | The Persona Pattern technique generates ideas by adopting predefined persona, offering unique perspective and goals.
-CHAIN_OF_VERIFICATION   | The Chain of Verification technique refines ideas by chaining prompts, generating verification questions, and analyzing responses.
-CONTRASTIVE_PROMPTING   | The Contrastive Prompting technique uses examples of good and bad responses to guide the agent towards an optimal output.
-MULTI_AGENT             | The Multi-Agent technique involves multiple agents collaborating on a topic before converging on a refined final output.
-ZERO_SHOT_COT           | The Zero-shot Chain-of-Thought technique guides the model to reason step-by-step, breaking down complex problems into intermediate steps for improved accuracy and transparency.
-REACT                   | The ReAct (Reason and Act) technique combines reasoning and action by allowing models to interleave thought processes with tool use, enabling more accurate and interactive problem-solving.
-EMOTION_PROMPT          | The EmotionPrompt technique enhances model performance by embedding emotional stimuli in prompts, encouraging more engaged, human-like, and context-aware responses.
-TAKE_A_STEP_BACK        | The Take-a-Step-Back technique adds a follow-up question prompting the model to reflect on its initial reasoning before giving a final answer.
-
+| Technique             | Explanation |
+|-----------------------|-------------|
+| CHAIN_OF_THOUGHT      | The Chain of Thought technique guides the model to reason step-by-step, leveraging its advanced reasoning capabilities to improve coherence and depth in idea generation. |
+| CHAIN_OF_VERIFICATION | The Chain of Verification technique refines ideas by chaining prompts, generating verification questions, and analyzing responses. |
+| CHAINING              | The Chaining technique builds a structured process: first understanding the thinking hat, then applying its perspective to the brainstorming context, and finally refining the response to ensure alignment. |
+| CONTRASTIVE_PROMPTING | The Contrastive Prompting technique uses examples of good and bad responses to guide the agent towards an optimal output. |
+| EMOTION_PROMPT        | The EmotionPrompt technique enhances model performance by embedding emotional stimuli in prompts, encouraging more engaged, human-like, and context-aware responses. |
+| FEW_SHOT              | The Few Shot technique uses example-based prompting by first generating three example responses from the hat's perspective, then applying these patterns to produce a final, guided response. |
+| MULTI_AGENT           | The Multi-Agent technique involves multiple agents collaborating on a topic before converging on a refined final output. |
+| PERSONA_PATTERN       | The Persona Pattern technique generates ideas by adopting predefined persona, offering unique perspective and goals. |
+| REACT                 | The ReAct (Reason and Act) technique combines reasoning and action by allowing models to interleave thought processes with tool use, enabling more accurate and interactive problem-solving. |
+| SYSTEM_2_ATTENTION    | The System 2 Attention technique introduces a two-step prompting process: first filtering and organizing brainstorming input, then using this optimized context to generate higher-quality ideas. |
+| TAKE_A_STEP_BACK      | The Take-a-Step-Back technique adds a follow-up question prompting the model to reflect on its initial reasoning before giving a final answer. |
+| ZERO_SHOT_COT         | The Zero-shot Chain-of-Thought technique guides the model to reason step-by-step, breaking down complex problems into intermediate steps for improved accuracy and transparency. |
 
 
 ### Brainstorming-input
