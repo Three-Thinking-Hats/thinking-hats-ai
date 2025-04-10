@@ -74,6 +74,7 @@ YELLOW| The Yellow Hat represents optimism and positivity, focusing on identifyi
 BLUE  | The Blue Hat represents control, organization, and overview, guiding the thinking process, setting objectives, managing the discussion, and ensuring that the Six Thinking Hats method is followed effectively.
 
 RED   | The Red Hat represents emotions, intuition, and gut feelings, allowing participants to express their instincts or emotional reactions to ideas without the need for justification or logic.
+
 source: [Book](https://swisscovery.slsp.ch/permalink/41SLSP_NETWORK/1ufb5t2/alma991081046019705501)
 
 
