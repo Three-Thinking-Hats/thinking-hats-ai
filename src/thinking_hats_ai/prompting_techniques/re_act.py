@@ -35,6 +35,7 @@ class ReAct(BasePromptingTechnique):
             f"{HAT_TOOL_USE[hat.value]}"
             f"Use the hat validator to check if your contribution is correctly classifed as the right hat. "
             f"If all the checks pass you are fine to ouput if one fails rethink your contribution."
+            f"Your response should have the lenght of{brainstorming_input.response_length}"
         )
 
         llm = ChatOpenAI(
