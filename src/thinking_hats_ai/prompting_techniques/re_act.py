@@ -58,4 +58,4 @@ class ReAct(BasePromptingTechnique):
         self.logger.start_logger(hat.value)
         self.logger.log_prompt(input_str)
         self.logger.log_response(response["output"])
-        return response
+        return response["output"]
