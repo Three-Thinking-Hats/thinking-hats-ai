@@ -12,6 +12,8 @@ dependencies = [
     "langchain-openai",
     "langchain-community",
     "urllib3<2.0.0",
+    "autogen>=0.8.5",
+    "ag2[openai]>=0.8.5",
 ]
 
 [build-system]
