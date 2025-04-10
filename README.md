@@ -88,7 +88,7 @@ Variable Name    | Explanation
 ----             | ----
 question         | This variable takes a `string`, the question that was asked in the brainstorming session
 ideas            | This variable takes a `list of strings` where each string is a idea from the brainstorming session
-response_length  | This variable takes a `string` which will control the length of the answer. You can say "10 sentences" but also things like "similar to the other ideas". It should fit the sentence: Provide a final, polished answer with a length of {length}.
+response_length  | This variable takes a `string` which will control the length of the answer. You can say "10 sentences" but also things like "similar to the other ideas". It should fit the sentence: Provide a response with a length of {response_length}.
 
 
 ### Developer mode
