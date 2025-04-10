@@ -5,6 +5,7 @@ from contextlib import redirect_stdout
 from autogen import ConversableAgent, GroupChat, GroupChatManager, LLMConfig
 from langchain.prompts import PromptTemplate
 
+from thinking_hats_ai.hats.hats import Hat, Hats
 from thinking_hats_ai.prompting_techniques.base_technique import (
     BasePromptingTechnique,
 )
@@ -19,7 +20,7 @@ class MultiAgent(BasePromptingTechnique):
     def execute_prompt(
         self,
         brainstorming_input: BrainstormingInput,
-        hat_instructions: str,
+        hat: Hat,
         api_handler: APIHandler,
     ):
         brainstorming_input.question
@@ -33,13 +34,14 @@ class MultiAgent(BasePromptingTechnique):
             "Make sure that at least one of the personas suits the description of the persona, and leads the conversation into this direction.\n"
             "Return the a json it should include a name (no whitespaces allowed) and a system_message for each persona'\n"
             "The json should be a list of dictionaries, but this list should not be a dictionary itself!"
-            "Do ONLY return a valid json!"
-            "Do not use ```json or ``` just return a list of dictionaries\n"
+            "Do NOT use ```json or ``` just return a list of dictionaries\n"
         )
 
         prompt = template.format(
-            hat_instructions=hat_instructions,
+            hat_instructions=Hats().get_instructions(hat),
         )
+
+        self.logger.start_logger(hat.value)
 
         self.logger.log_prompt(prompt, notes="META PROMPT - GENERATE PERSONAS")
 
@@ -87,7 +89,7 @@ class MultiAgent(BasePromptingTechnique):
                 "The final contribution should be {length} long and fullfill the previous criteria.".format(
                 question=brainstorming_input.question,
                 ideas=list_to_bulleted_string(brainstorming_input.ideas),
-                hat_instructions=hat_instructions,
+                hat_instructions=Hats().get_instructions(hat),
                 length=brainstorming_input.response_length
             )
         )
