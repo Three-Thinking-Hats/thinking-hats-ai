@@ -59,8 +59,8 @@ BLACK | TODO
 WHITE | TODO
 YELLOW| TODO
 GREEN | TODO
-BLUE  | TODO
-RED   | TODO
+BLUE  | The Blue Hat represents control, organization, and overview, guiding the thinking process, setting objectives, managing the discussion, and ensuring that the Six Thinking Hats method is followed effectively.
+RED   | The Red Hat represents emotions, intuition, and gut feelings, allowing participants to express their instincts or emotional reactions to ideas without the need for justification or logic.
 source: [Book](https://swisscovery.slsp.ch/permalink/41SLSP_NETWORK/1ufb5t2/alma991081046019705501)
 
 
@@ -69,6 +69,10 @@ The different prompting techniques help to analyse different approaches of idea 
 Technique        | Explanation
 ----             | ----
 CHAIN_OF_THOUGHT | TODO
+ZERO_SHOT_COT    | The Zero-shot Chain-of-Thought technique guides the model to reason step-by-step, breaking down complex problems into intermediate steps for improved accuracy and transparency.
+REACT            | The ReAct (Reason and Act) technique combines reasoning and action by allowing models to interleave thought processes with tool use, enabling more accurate and interactive problem-solving.
+EMOTION_PROMPT   | The EmotionPrompt technique enhances model performance by embedding emotional stimuli in prompts, encouraging more engaged, human-like, and context-aware responses.
+TAKE_A_STEP_BACK | The Take-a-Step-Back technique adds a follow-up question prompting the model to reflect on its initial reasoning before giving a final answer.
 
 
 ### Brainstorming-input
