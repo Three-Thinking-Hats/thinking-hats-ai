@@ -63,10 +63,10 @@ print(response)
 The different hats act as a predefined persona according to Edward de Bono's book about the six thinking hats in brainstorming. You can select which persona should be used for your instance.
 Hat   | Role
 ----  | ----
-BLACK | TODO
 WHITE | The White Hat represents neutrality and objectivity, focusing on gathering facts, identifying information gaps, and evaluating existing knowledge to ensure all reasoning is grounded in evidence and logic.
-YELLOW| TODO
 GREEN | The Green Hat represents creativity and innovation, focusing on generating new ideas, exploring alternatives, and proposing improvements to existing concepts to encourage original and unconventional thinking.
+BLACK | The Black Hat represents critical judgment and caution, focusing on identifying potential risks, weaknesses, and negative outcomes of ideas to ensure they are practical and safe.
+YELLOW| The Yellow Hat represents optimism and positivity, focusing on identifying the benefits, strengths, and potential value of ideas to highlight why they are worth pursuing.
 BLUE  | TODO
 RED   | TODO
 source: [Book](https://swisscovery.slsp.ch/permalink/41SLSP_NETWORK/1ufb5t2/alma991081046019705501)
@@ -80,7 +80,10 @@ CHAIN_OF_THOUGHT | Chain of Thought leverages GPT-o1's advanced reasoning capabi
 CHAINING | Chaining creates a chain of three steps: 1. Understand the thinking hat; 2. Use the perspective of the hat on the brainstorming context; 3. Refine the generated response and make sure it aligns with the thinking hat.
 FEW_SHOT | The Few Shot method first uses a meta prompt to generate three examples of how the given hat would reply in a brainstorming session. These examples are then used as guidance for generating a response to the given brainstorming session.
 SYSTEM_2_ATTENTION | S2A is a two step technique, that first prompt organizes and filters the ideas from the brainstorming session and then uses this optimized input for the next prompt.
-
+PERSONA_PATTERN         | The Persona Pattern technique generates ideas by adopting predefined persona, offering unique perspective and goals.
+CHAIN_OF_VERIFICATION   | The Chain of Verification technique refines ideas by chaining prompts, generating verification questions, and analyzing responses.
+CONTRASTIVE_PROMPTING   | The Contrastive Prompting technique uses examples of good and bad responses to guide the agent towards an optimal output.
+MULTI_AGENT             | The Multi-Agent technique involves multiple agents collaborating on a topic before converging on a refined final output.
 
 ### Brainstorming-input
 The instance of BrainstormingInput allows you to pass the brainstorming `question`, `ideas`and `response_length` to the generation of an idea.
@@ -111,6 +114,8 @@ pip install thinking-hats-ai
 
 ## Dependencies
 - [LangChain - A framework for developing applications powered by language models](https://www.langchain.com)
+- [AG2 - A multi-agent framework for building AI-driven systems](https://ag2.ai)
+- [Autogen - A framework for enabling autonomous AI agents to collaborate](https://microsoft.github.io/autogen/stable//index.html)
 
 
 ## Background
