@@ -19,7 +19,7 @@ class TakeAStepBack(BasePromptingTechnique):
     ):
         hat_instruction = Hats().get_instructions(hat)
         step_back_template = PromptTemplate(
-            input_variables=["hat_color", "hat_imnstructions"],
+            input_variables=["hat_instructions"],
             template="I wan't to use the take-a-step-back prompting technique. Here is a quick explanation of this prompting technique: "
             "Instead of jumping straight to a solution the step-back-question"
             "should ask the model to pause and reflect on the problem as a whole, break it down into smaller parts or reassess the approach. "
@@ -30,7 +30,7 @@ class TakeAStepBack(BasePromptingTechnique):
         )
 
         step_back_prompt = step_back_template.format(
-            hat_color=hat.value, hat_instructions=hat_instruction
+            hat_instructions=hat_instruction
         )
 
         step_back_question = api_handler.get_response(step_back_prompt)
