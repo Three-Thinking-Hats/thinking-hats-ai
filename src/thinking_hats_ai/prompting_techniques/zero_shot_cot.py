@@ -44,4 +44,5 @@ class ZeroShotCot(BasePromptingTechnique):
         self.logger.start_logger(hat.value)
         self.logger.log_prompt(prompt)
         response = api_handler.get_response(prompt)
+        self.logger.log_response(response)
         return response
