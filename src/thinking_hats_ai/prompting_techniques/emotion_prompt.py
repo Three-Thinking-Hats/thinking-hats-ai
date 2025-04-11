@@ -42,7 +42,7 @@ class EmotionPrompt(BasePromptingTechnique):
             hat_instructions=Hats().get_instructions(hat),
             question=brainstorming_input.question,
             ideas=list_to_bulleted_string(brainstorming_input.ideas),
-            emotion_promp=emotion_prompts["ep03"],
+            emotion_prompt=emotion_prompts["ep03"],
             length=brainstorming_input.response_length,
         )
 
