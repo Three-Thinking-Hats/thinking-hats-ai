@@ -10,7 +10,7 @@ from ..utils.brainstorming_input import BrainstormingInput
 from ..utils.string_utils import list_to_bulleted_string
 
 
-class ZeroShotCoT(BasePromptingTechnique):
+class ZeroShotCot(BasePromptingTechnique):
     def execute_prompt(
         self,
         brainstorming_input: BrainstormingInput,
