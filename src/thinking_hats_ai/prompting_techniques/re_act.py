@@ -22,8 +22,8 @@ class ReAct(BasePromptingTechnique):
         HAT_TOOL_USE = {
             "Black": "Use the sentimentlimiter to check if your contribution matches the sentiment needed for the hat.",
             "Blue": "Use the ThinkingProcessRater to ckeck if your contribution thinking process management is sufficient for your hat ",
-            "Green": "Use the creativity scorer to check if the creativity score matches your hat. ",
-            "Red": "Use the sentimentlimiter to check if your contribution matches the sentiment needed for the hat. Use the RedHatClassifier to check if you understood the red hat correctly.",
+            "Green": "Use the creativity analyzer to check if the idea is creative enough. Pass all the ideas already generated in the brainstorming question to the creativity analyzer. Make it clear which are the ideas from the brainstorming and which one is your idea.",
+            "Red": "First us the FlipACoin to determine what mood you are in. Use the sentimentlimiter to check if your contribution matches the sentiment needed for the hat. Use the RedHatClassifier to check if you understood the red hat correctly.",
             "White": "Use the sentimentlimiter to check if your contribution matches the sentiment needed for the hat.",
             "Yellow": "Use the sentimentlimiter to check if your contribution matches the sentiment needed for the hat.",
         }
@@ -34,21 +34,27 @@ class ReAct(BasePromptingTechnique):
             f"What would you add from the perspective of the given hat?  "
             f"{HAT_TOOL_USE[hat.value]}"
             f"Use the hat validator to check if your contribution is correctly classifed as the right hat. "
-            f"If all the checks pass you are fine to ouput if one fails rethink your contribution."
+            f"If all the checks pass (you should use all the tools) you are fine to ouput if one fails rethink your contribution."
             f"Your final response should have the lenght of {brainstorming_input.response_length}"
         )
 
-        llm = ChatOpenAI(
+        llm_tool = ChatOpenAI(
             temperature=0.0,
-            model_name="gpt-4o-mini",
+            model_name="gpt-3.5-turbo",
             api_key=api_handler.api_key,
         )
 
-        tools = get_tools_for_hat(hat.value, llm)
+        llm_agent = ChatOpenAI(
+            temperature=1.0,
+            model_name="gpt-3.5-turbo",
+            api_key=api_handler.api_key,
+        )
+
+        tools = get_tools_for_hat(hat.value, llm_tool)
 
         agent = initialize_agent(
             tools=tools,
-            llm=llm,
+            llm=llm_agent,
             agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
             verbose=True,
         )

@@ -46,7 +46,7 @@ def get_hat_guesser_tool(expected_hat: str, llm: BaseChatModel) -> Tool:
     return Tool(
         name="HatValidator",
         func=hat_guesser,
-        description=f"Validates that a message matches {expected_hat} Hat thinking style",
+        description=f"Use this tool to check if your contributions matches the correct hat. Validates that a message matches {expected_hat} Hat thinking style",
     )
 
 
