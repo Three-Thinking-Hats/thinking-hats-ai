@@ -38,9 +38,10 @@ class ContrastivePrompting(BasePromptingTechnique):
 
             "Your Task: "
             "Using the perspective defined by your current hat, analyze the provided ideas.\n"
-            "First, identify if any of the ideas resemble a “bad response” that contradicts your persona’s instructions.\n"
+            "First, identify if any of the provided ideas include aspects which do not fit to your persona.\n"
             "Explain step-by-step why such ideas are problematic, contrasting them with what would be acceptable or desirable.\n"
             "Finally, propose a revised idea or additional insight that better aligns with your persona’s objectives.\n"
+            "Do not say, if you found a bad or good answer. Only respond with your newly generated contribution from your personas hat.\n"
             "Your response should be {length} long.\n"
         )
 
