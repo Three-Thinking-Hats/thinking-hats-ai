@@ -17,7 +17,8 @@ class ChainOfThought(BasePromptingTechnique):
         hat: Hat,
         api_handler: APIHandler,
     ):
-        api_handler.change_model("o1")
+        original_model = api_handler.chat_model.name
+        api_handler.change_model("o3-mini")
         template = PromptTemplate(
             input_variables=[
                 "hat_instructions",
@@ -43,5 +44,7 @@ class ChainOfThought(BasePromptingTechnique):
         self.logger.start_logger(hat.value)
         self.logger.log_prompt(prompt)
         self.logger.log_response(response)
+
+        api_handler.change_model(original_model)
 
         return response
