@@ -17,7 +17,7 @@ class ChainOfThought(BasePromptingTechnique):
         hat: Hat,
         api_handler: APIHandler,
     ):
-        original_model = api_handler.chat_model.name
+        original_model = api_handler.chat_model.model_name
         api_handler.change_model("o3-mini")
         template = PromptTemplate(
             input_variables=[
