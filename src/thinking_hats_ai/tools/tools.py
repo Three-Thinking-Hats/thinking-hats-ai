@@ -18,7 +18,7 @@ def get_hat_guesser_tool(expected_hat: str, llm: BaseChatModel) -> Tool:
             Based on the content and style of the message below, determine which of the six thinking hats it most closely represents.
 
             Here are the options:
-            - Red Hat:  Emotion, feelings, intuition
+            - Red Hat:  Emotion, feelings, intuition (No new ideas but the honest opinion about the brainstorming so far. Things like "I feel" or "I have a hunch" are good red hat identifiers)
             - White Hat: Facts, neutrality, evidence-based reasoning
             - Green Hat: Creativity, new ideas, lateral thinking
             - Yellow Hat: Positivity, benefits, value-focused analysis
@@ -66,5 +66,7 @@ def get_tools_for_hat(hat_color: str, llm):
         tools = loader(llm)
     except TypeError:
         tools = []
-    tools.append(get_hat_guesser_tool(hat_color, llm))
+    print(hat_color)
+    if hat_color != "Blue":
+        tools.append(get_hat_guesser_tool(hat_color, llm))
     return tools

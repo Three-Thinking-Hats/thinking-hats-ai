@@ -2,12 +2,13 @@ from langchain.tools import Tool
 
 
 def get_red_hat_tools(llm):
-    def red_hat_classifier(input_text: str):
+    def feelings_assesor(input_text: str):
         prompt = f"""
-                You are a Red Hat classifier.
-                Asses if the following contribuition to a brainstorming session satisfies the instructions of the red hat.
-                The red hat should not give contributions about emotions e.g. - bad examples: the company should host emotional events or The company should forster connection this is not what the red hat is about. There should be no ideas connected to emotion just because it is the red hat.
-                But the red hat is about allowing emotions into the thinking process  - good example: I feel that this idea won't work out or I have a hunch that in the future none of this will be relevant (emotions are allowed in the thinking process and there is no need for explanation)
+                You are a feelings assesor.
+                Asses if the following contribuition to a brainstorming session if it is grounded in feeling. It shouldn't be about facts, it should be about how the contributor feels. It should be about how they feel.
+                - good example: **I feel** that this idea won't work out or **I have a hunch** that in the future none of this will be relevant (emotions are allowed in the thinking process and there is no need for explanation).
+                All starts like "I feel" or "I have a hunch" or "I have a bad feeling" are great! All contributions starting with "I" are great.
+                The red hat should not give ideas about emotions e.g. - bad examples: the company should host emotional events or The company should forster connection. (this is not grounded in emotion but about emotion. We do not want that.)
 
                 Idea: "{input_text}"
 
@@ -28,8 +29,8 @@ def get_red_hat_tools(llm):
 
     return [
         Tool(
-            name="RedHatClassifier",
-            func=red_hat_classifier,
-            description="Analyzes if it is a good red hat contribution. The classifier rejects and guides if it is not a good red hat contribuition and accepts if it is good.",
+            name="FeelingsAssesor",
+            func=feelings_assesor,
+            description="Analyzes if the contribution is grounded in feeling.",
         ),
     ]
