@@ -28,7 +28,7 @@ class ZeroShotCot(BasePromptingTechnique):
             template="Imagine you wear a thinking hat, which leads your thoughts with the following instructions: {hat_instructions}\n"
             "This is the question that was asked for the brainstorming: {question}\n"
             "These are the currently developed ideas in the brainstorming:\n{ideas}\n"
-            "What would you add from the perspective of the given hat? Justify your answer and think step-by-step.\n"
+            "What would you add taking on the perspective of the given hat from the instructions mentioned above? Justify your answer and think step-by-step.\n"
             "Please provide a response that is {length} long.",
         )
 
