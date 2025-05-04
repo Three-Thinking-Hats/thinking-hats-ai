@@ -3,7 +3,7 @@ from langchain_openai import ChatOpenAI
 
 
 class APIHandler:
-    def __init__(self, api_key, model="gpt-4o"):
+    def __init__(self, api_key, model="gpt-4.1"):
         self.api_key = api_key
         self.chat_model = ChatOpenAI(
             model_name=model, openai_api_key=self.api_key

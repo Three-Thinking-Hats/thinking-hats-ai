@@ -2,18 +2,28 @@ from langchain.tools import Tool
 
 
 def get_black_hat_tools(llm):
-    def sentiment_analysis_limiter(input_text: str):
+    def black_hat_critique_rater(input_text: str):
         prompt = f"""
-                You are an emotional sentiment assessor.
-                Analyze the **emotional sentiment** of the following idea on a scale from -10 (very negative) to 10 (very positive).
-                Only return the sentiment score (a number between -10 and 10) followed by a short emotion word, nothing else.
+        You are a Black Hat assessor. Your task is to evaluate whether the following response demonstrates **strong risk-focused critical thinking** as expected from the Black Hat in a brainstorming session.
 
-                Text: "{input_text}"
+        A proper Black Hat response should:
+        - Identify potential **dangers or downsides** of ideas
+        - Specify the **type of risk** (e.g., safety, legal, financial, ethical, reputational, long-term impact)
+        - Refer to parts of specific ideas or patterns in the brainstorming
+        - Avoid vague negativity or personal opinion
+        - Offer **constructive caution**, not just rejection
 
-                Format: <score> <emotion>
+        Rate how well the following response meets these criteria on a scale from 0 to 10.
 
-                Sentiment Score:
-                """
+        Response to evaluate:
+        \"\"\"{input_text}\"\"\"
+
+        Only return the score followed by a one- or two-word explanation.
+
+        Format: <score> <reason>
+
+        Risk Analysis Score:
+        """
         response = llm.invoke(prompt)
         result = response.content.strip()
         print(f"Raw LLM response: {result}")
@@ -21,17 +31,17 @@ def get_black_hat_tools(llm):
             score_part = result.strip().split()[0]
             score = float(score_part)
         except Exception:
-            return "Could not determine sentiment score."
+            return "❌ Could not determine Black Hat quality score."
 
-        if score <= -5:
-            return f"✔️ Sentiment negative enough ({score}): Proceeding with idea.\n{input_text}"
+        if score >= 7:
+            return f"✔️ Strong Black Hat response ({score}): Proceeding."
         else:
-            return f"❌ Sentiment too positive ({score}): This idea is blocked by Black Hat's intuition."
+            return f"⚠️ Weak Black Hat response ({score}): Needs revision."
 
     return [
         Tool(
-            name="SentimentLimiter",
-            func=sentiment_analysis_limiter,
-            description="Analyzes sentiment and only allows ideas through if emotional response is strong enough (>= 0.7)",
+            name="BlackHatCritiqueRater",
+            func=black_hat_critique_rater,
+            description="Evaluates if a response performs strong risk analysis by pointing out specific dangers and naming the type of risk.",
         )
     ]
