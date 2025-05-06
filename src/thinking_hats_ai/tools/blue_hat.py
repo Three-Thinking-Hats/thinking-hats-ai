@@ -2,6 +2,19 @@ from langchain.tools import Tool
 
 
 def get_blue_hat_tools(llm):
+    """
+    Returns a list of tools for evaluating Blue Hat thinking using a provided language model.
+
+    The Blue Hat tool assesses whether a response effectively performs the Blue Hat's role in a brainstorming session —
+    guiding the thinking process, balancing thinking styles, and suggesting a clear next step without introducing new content.
+
+    Args:
+        llm: An object with an `.invoke(prompt)` method, typically a language model interface.
+
+    Returns:
+        List[Tool]: A list containing a single Tool object (`BlueHatResponseRater`) that evaluates Blue Hat thinking quality.
+    """
+
     def blue_hat_quality_assessor(input_text: str):
         prompt = f"""
         You are a Blue Hat thinking assessor. Evaluate whether the following response fulfills the core role of the Blue Hat in a brainstorming session.

@@ -11,12 +11,35 @@ from ..utils.string_utils import list_to_bulleted_string
 
 
 class ChainOfThought(BasePromptingTechnique):
+    """
+    A prompting technique that simulates chain-of-thought reasoning from the perspective
+    of a selected thinking hat.
+
+    This method encourages step-by-step thinking by guiding the model with detailed
+    hat instructions and temporarily switches to a lightweight model for efficiency.
+    """
+
     def execute_prompt(
         self,
         brainstorming_input: BrainstormingInput,
         hat: Hat,
         api_handler: APIHandler,
     ):
+        """
+        Executes a chain-of-thought prompt aligned with a specific thinking hat perspective.
+
+        The process temporarily swaps the LLM to a faster model, builds a detailed prompt,
+        collects the response, logs everything, and then restores the original model.
+
+        Args:
+            brainstorming_input (BrainstormingInput): The session input including question, ideas, and response length.
+            hat (Hat): The thinking hat to simulate.
+            api_handler (APIHandler): Handles interaction with the language model.
+
+        Returns:
+            str: The brainstorming contribution generated using chain-of-thought reasoning.
+        """
+
         original_model = api_handler.chat_model.model_name
         api_handler.change_model("o3-mini")
         template = PromptTemplate(

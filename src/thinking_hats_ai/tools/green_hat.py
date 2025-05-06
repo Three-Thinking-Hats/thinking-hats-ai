@@ -2,6 +2,19 @@ from langchain.tools import Tool
 
 
 def get_green_hat_tools(llm):
+    """
+    Returns a list of tools for evaluating Green Hat thinking using a provided language model.
+
+    The returned tool assesses whether a new idea in a brainstorming session is creative, original, and meaningfully different
+    from existing ideas, in line with the Green Hat's focus on creativity and lateral thinking.
+
+    Args:
+        llm: An object with an `.invoke(prompt)` method, typically a language model interface.
+
+    Returns:
+        List[Tool]: A list containing a single Tool object (`CreativityAnalyzer`) that assesses idea originality.
+    """
+
     def creativity_analyzer(input_text: str):
         prompt = f"""
             You are a Creativity Analyzer.

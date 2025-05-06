@@ -11,12 +11,34 @@ from ..utils.string_utils import list_to_bulleted_string
 
 
 class EmotionPrompt(BasePromptingTechnique):
+    """
+    A prompting technique that adds emotional motivation to the reasoning process
+    to simulate emotionally influenced decision-making in brainstorming.
+
+    This method injects emotion-based phrases into the prompt to subtly guide
+    the model's thinking in alignment with a given hat's perspective.
+    """
+
     def execute_prompt(
         self,
         brainstorming_input: BrainstormingInput,
         hat: Hat,
         api_handler: APIHandler,
     ):
+        """
+        Executes an emotionally motivated prompt using a specific thinking hat perspective.
+
+        This method enhances the prompt with a predefined motivational phrase, helping the
+        model generate more emotionally resonant responses without deviating from the hat style.
+
+        Args:
+            brainstorming_input (BrainstormingInput): The brainstorming session question, ideas, and desired response length.
+            hat (Hat): The thinking hat perspective to use.
+            api_handler (APIHandler): API interface for sending prompts and receiving responses.
+
+        Returns:
+            str: The emotionally guided brainstorming contribution.
+        """
         emotion_prompts = {
             "ep03": "This is very important to my career",
             "ep09": "Stay focused and dedicated to your goals. Your consistent efforts will lead to outstanding achievements.",

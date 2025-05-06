@@ -2,6 +2,19 @@ from langchain.tools import Tool
 
 
 def get_red_hat_tools(llm):
+    """
+    Returns a list of tools for evaluating Red Hat thinking using a provided language model.
+
+    The returned tool checks if a brainstorming contribution is grounded in feelings, hunches, or emotional intuition,
+    in line with the Red Hat mode from the Six Thinking Hats framework.
+
+    Args:
+        llm: An object with an `.invoke(prompt)` method, typically a language model interface.
+
+    Returns:
+        List[Tool]: A list containing a single Tool object (`FeelingsAssesor`) that assesses emotion-based reasoning.
+    """
+
     def feelings_assesor(input_text: str):
         prompt = f"""
                 You are a feelings assesor.

@@ -11,12 +11,33 @@ from ..utils.string_utils import list_to_bulleted_string
 
 
 class TakeAStepBack(BasePromptingTechnique):
+    """
+    A prompting technique that encourages reflection before response generation by simulating
+    a "step back" to reassess the problem, then contributing in the style of a selected thinking hat.
+    """
+
     def execute_prompt(
         self,
         brainstorming_input: BrainstormingInput,
         hat: Hat,
         api_handler: APIHandler,
     ):
+        """
+        Executes a two-phase prompt:
+        1. Generates a "step-back" question based on the hat's instructions.
+        2. Uses that step-back reflection to guide the final brainstorming response.
+
+        This approach encourages the model to pause, reframe, or reconsider the task
+        before contributing a hat-style answer to a brainstorming session.
+
+        Args:
+            brainstorming_input (BrainstormingInput): Contains the question, ideas, and desired response length.
+            hat (Hat): The thinking hat perspective to simulate in the response.
+            api_handler (APIHandler): Handles communication with the LLM.
+
+        Returns:
+            str: The final response from the model, generated using the step-back-enhanced prompt.
+        """
         hat_instruction = Hats().get_instructions(hat)
         step_back_template = PromptTemplate(
             input_variables=["hat_instructions"],

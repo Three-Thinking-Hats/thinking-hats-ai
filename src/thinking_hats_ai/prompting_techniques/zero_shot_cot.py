@@ -11,12 +11,32 @@ from ..utils.string_utils import list_to_bulleted_string
 
 
 class ZeroShotCot(BasePromptingTechnique):
+    """
+    A prompting technique that uses a zero-shot chain-of-thought (CoT) strategy
+    to simulate a specific thinking hat's mindset when generating brainstorming responses.
+    """
+
     def execute_prompt(
         self,
         brainstorming_input: BrainstormingInput,
         hat: Hat,
         api_handler: APIHandler,
     ):
+        """
+        Executes a zero-shot chain-of-thought prompt using the specified thinking hat.
+
+        Constructs a context-aware prompt incorporating the thinking hat's instructions,
+        the brainstorming question, and existing ideas. Sends it to the language model
+        through the provided API handler, logs the interaction, and returns the response.
+
+        Args:
+            brainstorming_input (BrainstormingInput): The input question, ideas, and desired response length.
+            hat (Hat): The thinking hat perspective to apply.
+            api_handler (APIHandler): The handler used to invoke the language model.
+
+        Returns:
+            str: The generated response from the language model.
+        """
         brainstorming_input.question
         template = PromptTemplate(
             input_variables=[
