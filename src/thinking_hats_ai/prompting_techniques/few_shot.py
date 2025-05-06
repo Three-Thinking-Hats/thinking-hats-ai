@@ -14,8 +14,8 @@ class FewShot(BasePromptingTechnique):
     """
     A prompting technique that uses few-shot examples to guide the model in generating a new hat-based brainstorming contribution.
 
-    This technique first creates example contributions for the selected thinking hat and then uses those examples
-    to condition a final response in the current brainstorming context.
+    This technique first creates example contributions in a meta prompt for the selected thinking hat and then uses those examples
+    to create a final response in the current brainstorming context.
     """
 
     def execute_prompt(

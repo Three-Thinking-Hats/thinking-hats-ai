@@ -16,7 +16,7 @@ class ChainOfThought(BasePromptingTechnique):
     of a selected thinking hat.
 
     This method encourages step-by-step thinking by guiding the model with detailed
-    hat instructions and temporarily switches to a lightweight model for efficiency.
+    hat instructions and temporarily switches to the o3-mini model to apply reasoning.
     """
 
     def execute_prompt(

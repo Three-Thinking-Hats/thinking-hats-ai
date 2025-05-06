@@ -12,7 +12,7 @@ from ..utils.string_utils import list_to_bulleted_string
 
 class System2Attention(BasePromptingTechnique):
     """
-    A prompting technique that simulates deliberative, structured reasoning (System 2 thinking)
+    A prompting technique that simulates deliberative, structured reasoning
     by rewriting brainstorming input before generating a hat-specific response.
 
     This method first reformulates and organizes the brainstorming context to reduce duplication

@@ -5,7 +5,7 @@ class BrainstormingInput:
     """
     A data container for storing input to a brainstorming process.
 
-    This class holds a main question, a list of ideas related to that question, and an optional expected response length.
+    This class holds a brainstorming question, a list of ideas related to that question, and an optional expected response length.
     """
 
     def __init__(
