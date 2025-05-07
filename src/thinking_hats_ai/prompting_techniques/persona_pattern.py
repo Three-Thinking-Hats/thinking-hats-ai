@@ -15,8 +15,8 @@ class PersonaPattern(BasePromptingTechnique):
     A prompting technique where the model adopts the persona of a participant
     embodying the mindset of a specific thinking hat in a brainstorming session.
 
-    This approach emphasizes roleplay and immersive, in-character contribution
-    based on the assigned hat's principles without explicitly stating the perspective.
+    This approach emphasizes in-character contribution based on the
+    assigned hat's principles without explicitly stating the perspective.
     """
 
     def execute_prompt(
