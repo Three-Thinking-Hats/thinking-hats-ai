@@ -10,6 +10,19 @@ from .yellow_hat import get_yellow_hat_tools
 
 
 def get_hat_guesser_tool(expected_hat: str, llm: BaseChatModel) -> Tool:
+    """
+    Returns a tool that checks whether a given input reflects the expected thinking hat style.
+
+    The tool classifies the input into one of the six thinking hats and compares it to the expected hat.
+    It provides feedback and suggestions for improvement if there is a mismatch.
+
+    Args:
+        expected_hat (str): The expected hat color (e.g., 'Red', 'White', etc.).
+        llm (BaseChatModel): The language model instance used to analyze the input.
+
+    Returns:
+        Tool: A LangChain Tool that performs the hat classification and validation.
+    """
     expected_hat = expected_hat.capitalize()
 
     def hat_guesser(input_text: str) -> str:
@@ -61,6 +74,18 @@ HAT_TOOL_LOADERS = {
 
 
 def get_tools_for_hat(hat_color: str, llm):
+    """
+    Retrieves the appropriate set of tools for the given thinking hat.
+
+    Includes hat-specific assessment tools and optionally a validator to check if input matches the expected hat style.
+
+    Args:
+        hat_color (str): The color of the thinking hat (e.g., 'Red', 'Green').
+        llm: The language model to be used for tool operation.
+
+    Returns:
+        List[Tool]: A list of LangChain tools for evaluating contributions in the specified hat's style.
+    """
     loader = HAT_TOOL_LOADERS.get(hat_color)
     try:
         tools = loader(llm)

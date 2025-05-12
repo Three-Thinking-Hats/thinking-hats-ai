@@ -12,12 +12,36 @@ from ..utils.string_utils import list_to_bulleted_string
 
 
 class Chaining(BasePromptingTechnique):
+    """
+    A prompting technique that uses a three-step chained conversation approach to iteratively build and refine
+    a thinking hat-based brainstorming contribution.
+
+    Each step (initialization, idea generation, and refinement) builds upon the chat history
+    to maintain coherence and alignment with the selected thinking hat.
+    """
+
     def execute_prompt(
         self,
         brainstorming_input: BrainstormingInput,
         hat: Hat,
         api_handler: APIHandler,
     ):
+        """
+        Executes the chained prompting process to generate a polished brainstorming contribution.
+
+        The flow involves:
+        1. Establishing the hat's persona and intent.
+        2. Generating ideas informed by prior context and chat history.
+        3. Refining those ideas into a final, hat-aligned output.
+
+        Args:
+            brainstorming_input (BrainstormingInput): Contains the brainstorming question, prior ideas, and response length.
+            hat (Hat): The thinking hat to emulate during the session.
+            api_handler (APIHandler): The API handler to interact with the language model.
+
+        Returns:
+            str: The final refined brainstorming response.
+        """
         self.api_handler = api_handler
         chat_history = ChatMessageHistory()
         self.logger.start_logger(hat.value)

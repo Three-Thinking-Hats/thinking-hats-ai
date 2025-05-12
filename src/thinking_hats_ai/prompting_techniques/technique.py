@@ -2,6 +2,13 @@ from enum import Enum
 
 
 class Technique(Enum):
+    """
+    Enum representing different prompting techniques used in language model-based reasoning and generation tasks.
+
+    Each technique reflects a distinct strategy or methodology for prompting, such as zero-shot reasoning, multi-agent collaboration,
+    or emotionally informed prompting.
+    """
+
     CHAIN_OF_THOUGHT = "chain_of_thought"
     SYSTEM_2_ATTENTION = "system_2_attention"
     CHAINING = "chaining"

@@ -1,4 +1,11 @@
 class RedHat:
+    """
+    Represents the Red Hat thinking role, which focuses on expressing emotional responses, intuition, and gut feelings.
+
+    This hat encourages subjective reactions to existing ideas in the brainstorming session,
+    without requiring logical justification. Its purpose is to surface the emotional tone of the discussion.
+    """
+
     INSTRUCTION = """The Red hat: A place for emotions in thinking.
     The Red Hat is about expressing feelings, emotions, and intuition in response to the ideas shared so far. These reactions can include enthusiasm, discomfort, uncertainty, doubt, excitement, or a subtle gut feeling — even if you’re not sure why you feel that way.
     This is not about generating emotional ideas, but about how you personally feel about the existing ones.

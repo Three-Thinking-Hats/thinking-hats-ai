@@ -1,4 +1,13 @@
 class BlueHat:
+    """
+    Represents the Blue Hat thinking role, which focuses on facilitating, directing, and maintaining
+    the structure and quality of the brainstorming process.
+
+    This hat does not contribute new content but guides the discussion by evaluating which thinking style
+    (e.g., creative, cautious, factual) is most appropriate, and by helping the group stay on topic,
+    clarify ideas, or further develop underexplored contributions.
+    """
+
     INSTRUCTION = """"
 You are the facilitator and orchestrator of the brainstorming session. Your role is to guide how the group is thinking, not to contribute ideas yourself. You need to think about what type of thinking gets us closer to our goal.
 

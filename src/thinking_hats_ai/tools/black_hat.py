@@ -2,6 +2,20 @@ from langchain.tools import Tool
 
 
 def get_black_hat_tools(llm):
+    """
+    Returns a list of tools for evaluating Black Hat thinking using a provided language model.
+
+    The tool assesses whether a response demonstrates strong, risk-aware critical thinking as expected from
+    the Black Hat role in the Six Thinking Hats method — including identifying specific dangers and naming
+    types of risk in a constructive, cautionary manner.
+
+    Args:
+        llm: An object with an `.invoke(prompt)` method, typically a language model interface.
+
+    Returns:
+        List[Tool]: A list containing a single Tool object (`BlackHatCritiqueRater`) that evaluates critical thinking.
+    """
+
     def black_hat_critique_rater(input_text: str):
         prompt = f"""
         You are a Black Hat assessor. Your task is to evaluate whether the following response demonstrates **strong risk-focused critical thinking** as expected from the Black Hat in a brainstorming session.

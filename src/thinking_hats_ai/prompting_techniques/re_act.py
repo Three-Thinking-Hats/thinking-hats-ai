@@ -13,12 +13,36 @@ from ..utils.string_utils import list_to_bulleted_string
 
 
 class ReAct(BasePromptingTechnique):
+    """
+    A prompting technique that uses the ReAct (Reasoning + Acting) framework to simulate a thinking hat's perspective.
+
+    This approach enables the model to refine its brainstorming contribution by invoking tools specific to the selected hat,
+    using LangChain's ReAct agent system to reason step-by-step and validate its output.
+    """
+
     def execute_prompt(
         self,
         brainstorming_input: BrainstormingInput,
         hat: Hat,
         api_handler: APIHandler,
     ):
+        """
+        Executes a ReAct-based prompting flow that generates, validates, and refines a hat-specific brainstorming contribution.
+
+        The method:
+        - Constructs a prompt incorporating hat instructions, brainstorming input, and validation guidelines.
+        - Initializes LangChain tools relevant to the selected hat.
+        - Uses a ReAct agent to evaluate and improve the model’s output.
+        - Logs all stages and returns the final, polished contribution.
+
+        Args:
+            brainstorming_input (BrainstormingInput): Contains the question, existing ideas, and response length.
+            hat (Hat): The thinking hat to simulate.
+            api_handler (APIHandler): Used to access the OpenAI API.
+
+        Returns:
+            str: A refined brainstorming contribution labeled as "Final Answer", suitable for direct submission.
+        """
         HAT_TOOL_USE = {
             "Black": "Use the BlackHatCritiqueRater to check whether your contribution identifies potential risks or downsides clearly and aligns with the critical thinking expected from the Black Hat.",
             "Blue": "Use the BlueHatResponseRater to ckeck if your contribution is a good blue hat contribution to the brainstortming. ",

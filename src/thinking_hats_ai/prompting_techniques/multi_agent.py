@@ -16,6 +16,13 @@ from ..utils.string_utils import list_to_bulleted_string
 
 
 class MultiAgent(BasePromptingTechnique):
+    """
+    A prompting technique that coordinates a group of AI personas in a multi-agent conversation to simulate diverse thinking.
+
+    This class generates multiple agent personas based on the selected thinking hat, facilitates a structured conversation among them,
+    and extracts a final brainstorming contribution either directly from the discussion or through post-processing if needed.
+    """
+
     ### Meta Prompt for Persona Generation
     def execute_prompt(
         self,
@@ -23,18 +30,32 @@ class MultiAgent(BasePromptingTechnique):
         hat: Hat,
         api_handler: APIHandler,
     ):
+        """
+        Executes a multi-agent prompt to generate a brainstorming contribution from different simulated perspectives.
+
+        The process involves:
+        - Generating multiple personas aligned with the selected thinking hat.
+        - Running a structured group conversation using those personas.
+        - Logging contributions and either returning a directly finalized response or deriving one from the conversation.
+
+        Args:
+            brainstorming_input (BrainstormingInput): The question, existing ideas, and response length.
+            hat (Hat): The thinking hat perspective to simulate.
+            api_handler (APIHandler): The handler to invoke the language model and obtain results.
+
+        Returns:
+            str: The final brainstorming contribution, based on the collective discussion.
+        """
         brainstorming_input.question
         template = PromptTemplate(
-            input_variables=[
-                "hat_instructions"
-            ],
-            template= "The task for a multi agent prompt is, to create a contribution to a brainstorming from the point of view of the following persona: {hat_instructions}\n"
+            input_variables=["hat_instructions"],
+            template="The task for a multi agent prompt is, to create a contribution to a brainstorming from the point of view of the following persona: {hat_instructions}\n"
             "They will receive a brainstorming question and a list of previously generated ideas, along to the task to create a contribution\n"
             "Your task is, to create personas as for the multi agent. There must be at least 3 personas, which are all different from each other.\n"
             "Make sure that at least one of the personas suits the description of the persona, and leads the conversation into this direction.\n"
             "Return the a json it should include a name (no whitespaces allowed) and a system_message for each persona'\n"
             "The json should be a list of dictionaries, but this list should not be a dictionary itself!"
-            "Do NOT use ```json or ``` just return a list of dictionaries\n"
+            "Do NOT use ```json or ``` just return a list of dictionaries\n",
         )
 
         prompt = template.format(
@@ -47,10 +68,14 @@ class MultiAgent(BasePromptingTechnique):
 
         response = api_handler.get_response(prompt)
 
-        self.logger.log_response(response, notes="META PROMPT - GENERATED PERSONAS")
+        self.logger.log_response(
+            response, notes="META PROMPT - GENERATED PERSONAS"
+        )
 
         ### Prompt for Multi Agent
-        llm_config = LLMConfig(api_type="openai", model="gpt-4o", api_key=api_handler.api_key)
+        llm_config = LLMConfig(
+            api_type="openai", model="gpt-4o", api_key=api_handler.api_key
+        )
         # 1. Format response
         if isinstance(response, str):
             response = json.loads(response)
@@ -60,15 +85,16 @@ class MultiAgent(BasePromptingTechnique):
             for persona in response:
                 agent = ConversableAgent(
                     persona["name"],
-                    system_message=(persona["system_message"] + "\n If you found a contribution meeting the initial critera respond ONLY with 'FINAL: (CONTRIBUTION)', do not add quotation marks or any other content, do not make a final contribution while still saying anything else. Make sure everyone at least contributed three times before you allign.")
+                    system_message=(
+                        persona["system_message"]
+                        + "\n If you found a contribution meeting the initial critera respond ONLY with 'FINAL: (CONTRIBUTION)', do not add quotation marks or any other content, do not make a final contribution while still saying anything else. Make sure everyone at least contributed three times before you allign."
+                    ),
                 )
                 agents.append(agent)
 
         # 3. Create groupchat
         groupchat = GroupChat(
-            agents=agents,
-            speaker_selection_method="auto",
-            max_round=30
+            agents=agents, speaker_selection_method="auto", max_round=30
         )
         # 4. Create manager
         manager = GroupChatManager(
@@ -76,22 +102,23 @@ class MultiAgent(BasePromptingTechnique):
             groupchat=groupchat,
             system_message="you are the leader of the discussion. You want to assure that the agents do not allign to quickly (not before everyone contributed at least twice). You ensure that the task will be fullfilled.",
             llm_config=llm_config,
-            is_termination_msg=lambda x: "FINAL:" in (x.get("content", "") or "").upper(),
+            is_termination_msg=lambda x: "FINAL:"
+            in (x.get("content", "") or "").upper(),
         )
         # 5. Run the chat
         response = manager.run(
             recipient=manager,
-            message="Let's find a contribution to the brainstorming question: {question}" \
-                "Our goal is to create a contribution to the brainstorming from the point of view of the following persona: {hat_instructions}\n" \
-                "These are the currently developed ideas in the brainstorming:\n{ideas}\n" \
-                "Discuss what you could contribute to the brainstorming while sticking to the defined persona. Your goal is to either create a new contribution or use the existing ones. It may depend on the persona defined above.\n" \
-                "The discussion should take at least 19 turns, and each persona should contribute at least three times. While discussing the length isn't important, only for the final contribution.\n" \
-                "The final contribution should be {length} long and fullfill the previous criteria.".format(
+            message="Let's find a contribution to the brainstorming question: {question}"
+            "Our goal is to create a contribution to the brainstorming from the point of view of the following persona: {hat_instructions}\n"
+            "These are the currently developed ideas in the brainstorming:\n{ideas}\n"
+            "Discuss what you could contribute to the brainstorming while sticking to the defined persona. Your goal is to either create a new contribution or use the existing ones. It may depend on the persona defined above.\n"
+            "The discussion should take at least 19 turns, and each persona should contribute at least three times. While discussing the length isn't important, only for the final contribution.\n"
+            "The final contribution should be {length} long and fullfill the previous criteria.".format(
                 question=brainstorming_input.question,
                 ideas=list_to_bulleted_string(brainstorming_input.ideas),
                 hat_instructions=Hats().get_instructions(hat),
-                length=brainstorming_input.response_length
-            )
+                length=brainstorming_input.response_length,
+            ),
         )
         # 6. Iterate through the chat automatically with & without console output
         if not self.logger.dev:
@@ -107,10 +134,12 @@ class MultiAgent(BasePromptingTechnique):
             content = msg.get("content", "")
             contrib = f"{name}: {content}\n"
             chat_transcript += contrib
-            self.logger.log_response_and_prompt(contrib, notes="CHAT CONTRIBUTION")
+            self.logger.log_response_and_prompt(
+                contrib, notes="CHAT CONTRIBUTION"
+            )
 
         # log if found final
-        lastMessage = groupchat.messages[-1].get("content","")
+        lastMessage = groupchat.messages[-1].get("content", "")
         if lastMessage.startswith("FINAL:"):
             final = lastMessage.replace("FINAL: ", "", 1)
             return final
@@ -127,8 +156,8 @@ class MultiAgent(BasePromptingTechnique):
 
         self.logger.log_prompt(final_prompt, notes="FINAL CONTRIBUTION PROMPT")
         final_response = api_handler.get_response(final_prompt)
-        self.logger.log_response(final_response, notes="FINAL CONTRIBUTION RESPONSE")
+        self.logger.log_response(
+            final_response, notes="FINAL CONTRIBUTION RESPONSE"
+        )
 
         return final_response
-
-

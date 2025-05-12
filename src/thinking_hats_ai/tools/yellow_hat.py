@@ -2,6 +2,19 @@ from langchain.tools import Tool
 
 
 def get_yellow_hat_tools(llm):
+    """
+    Returns a list of tools for evaluating Yellow Hat thinking using a provided language model.
+
+    The returned tool evaluates whether a given response reflects the positive, constructive, value-oriented mindset
+    expected from the Yellow Hat role in a Six Thinking Hats brainstorming framework.
+
+    Args:
+        llm: An object with an `.invoke(prompt)` method, typically a language model interface.
+
+    Returns:
+        List[Tool]: A list containing a single Tool object (`YellowHatValueRater`) that assesses Yellow Hat qualities.
+    """
+
     def yellow_hat_value_assessor(input_text: str):
         prompt = f"""
         You are a Yellow Hat assessor. Evaluate whether the following response demonstrates **positive, opportunity-focused thinking** as expected from the Yellow Hat role in a brainstorming session.

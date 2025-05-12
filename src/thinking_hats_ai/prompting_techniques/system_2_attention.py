@@ -11,12 +11,35 @@ from ..utils.string_utils import list_to_bulleted_string
 
 
 class System2Attention(BasePromptingTechnique):
+    """
+    A prompting technique that simulates deliberative, structured reasoning
+    by rewriting brainstorming input before generating a hat-specific response.
+
+    This method first reformulates and organizes the brainstorming context to reduce duplication
+    and then prompts the model to contribute using the chosen thinking hat's perspective.
+    """
+
     def execute_prompt(
         self,
         brainstorming_input: BrainstormingInput,
         hat: Hat,
         api_handler: APIHandler,
     ):
+        """
+        Executes a two-step System 2-style reasoning process to generate a structured brainstorming response.
+
+        First, the input ideas and question are rewritten in a clean and organized format.
+        Then, a new prompt is constructed using that structured content and the specified hat's instructions
+        to generate a focused and deliberate contribution.
+
+        Args:
+            brainstorming_input (BrainstormingInput): The user's question, supporting ideas, and desired response length.
+            hat (Hat): The thinking hat to use for perspective in the final output.
+            api_handler (APIHandler): Handles interactions with the LLM.
+
+        Returns:
+            str: The final model response after applying System 2 reasoning and hat-specific thinking.
+        """
         self.logger.start_logger(hat.value)
 
         rewrite_template = PromptTemplate(
